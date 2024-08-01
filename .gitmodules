@@ -1,0 +1,9 @@
+[submodule "lib/arduino-CAN"]
+	path = lib/arduino-CAN
+	url = git@github.com:sandeepmistry/arduino-CAN.git
+[submodule "lib/MHZ19"]
+	path = lib/MHZ19
+	url = git@github.com:crisap94/MHZ19.git
+[submodule "lib/MHZ19C"]
+	path = lib/MHZ19C
+	url = git@github.com:takashi-makinose/MHZ19C.git
