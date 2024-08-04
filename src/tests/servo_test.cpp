@@ -25,11 +25,11 @@ void setup()
   delay(2000);  
   // start the CAN bus at 500 kbps
   // if (!CAN.begin (500E3)) {
-  //   Serial.println ("Starting CAN failed!");
+  //   Serial.printf ("Starting CAN failed!");
   //   while (1);
   // }
   // else {
-  //   Serial.println ("CAN Initialized");
+  //   Serial.printf ("CAN Initialized");
   // }
 }
 
@@ -39,5 +39,5 @@ void loop()
   int mmotorSpeed = map(pot_value, 0, 4095, 0, 180);
 
   ESC.write(mmotorSpeed); 
-  Serial.println(mmotorSpeed);
+  Serial.printf("%d\n",mmotorSpeed);
 }

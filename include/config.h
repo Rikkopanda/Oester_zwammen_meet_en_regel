@@ -2,6 +2,10 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include <stddef.h>
+#include <string>
+#include <cstddef>
+
 //subscribe topics
 extern const char    *pump_topic;
 extern const char    *nevelaar_topic;
@@ -26,7 +30,7 @@ extern int   		 last_button_state;
 typedef struct s_callback_func_entry
 {
 	const char *topic;
-	void (*callback_func_ptr)(String &data);
+	void (*callback_func_ptr)(std::string &data);
 } t_callback_func_entry;
 
 extern const t_callback_func_entry callback_table[3];
@@ -64,22 +68,45 @@ enum e_sensor_array_indexes
 	MOISTURE_I,
 	TEMP_SENSOR_I
 };
-
+//------wifi-------
+#define       SSID_MOBIEL "V30_9620"
+#define       PASSWORD_MOBIEL "hoi1hoi1"
 void 	  connect_broker();
 void 	  connect_wifi();
-String	get_wifi_status(int status);
+std::string	get_wifi_status(int status);
 
-void callback(char *topic, byte *payload, unsigned int length);
-void pump_callback_action(String &data);
-void nevelaar_callback_action(String &data);
-void lucht_aanvoer_callback_action(String &data);
+
+void callback(char *topic, uint8_t *payload, unsigned int length);
+void pump_callback_action(std::string &data);
+void nevelaar_callback_action(std::string &data);
+void lucht_aanvoer_callback_action(std::string &data);
 
 int check_overflow();
 int check_interval();
 int activate_sensor();
+void publish_int(const char *topic, int val);
+
+//------CH8_sensor_co2-------
+// Define the number of bytes in a data packet
+#define DATA_PACKET_SIZE 16
+#define CO2_BUFFER_SIZE 60
+class HardwareSerial;
+void read_co2_sensor();
+extern HardwareSerial sensorSerial; // RX, TX
+
 
 //------CAN-------
 void canSender();
 void canReceiver();
+
+//------bme_sensor-------
+#define SEALEVELPRESSURE_HPA (1013.25)
+class Adafruit_BME680;
+
+void bme_setup_and_init(Adafruit_BME680 *bme_sensor);
+void read_bme_publish(Adafruit_BME680 *bme_sensor, std::string name);
+
+
+
 
 #endif

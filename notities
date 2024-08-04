@@ -1,0 +1,27 @@
+
+
+
+platformio handigheidjes:
+pio run monitor --filter esp32-serial-decoder //bij Guru meditation error
+
+[env:A]
+build_src_filter = 
+	+<main_board_A.cpp>
+	+<canReceiver.cpp>
+	+<canSender.cpp>
+	+<wifi_callbacks.cpp>
+	+<setup_wifi.cpp>
+	+<bme.cpp>
+	+<CH8_sensor.cpp>
+	+<helper_functions.cpp>
+lib_deps = 
+	Wire
+	plerup/EspSoftwareSerial@^8.2.0
+	knolleary/PubSubClient@^2.8
+	madhephaestus/ESP32Servo@^3.0.5
+	adafruit/Adafruit Unified Sensor@^1.1.14
+	adafruit/Adafruit BME680 Library@^2.0.4
+	adafruit/Adafruit BusIO@^1.16.1
+
+; build_src_filter = 
+; 	+<aansturen_humidity_test.cpp>

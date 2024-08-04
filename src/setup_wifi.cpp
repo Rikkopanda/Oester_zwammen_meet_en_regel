@@ -1,6 +1,7 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
-#include <config.h>
+#include "config.h"
+#include <Wire.h>
 
 //wifi
 extern WiFiClient    espClient;
@@ -30,6 +31,7 @@ void connect_broker()
     }
   }
 }
+#include <Arduino.h>
 
 void connect_wifi()
 {
@@ -39,7 +41,7 @@ void connect_wifi()
   Serial.println("\nConnecting");
   while(WiFi.status() != WL_CONNECTED)
   {
-    Serial.println(get_wifi_status(status));
+    Serial.println(get_wifi_status(status).c_str());
     delay(500);
   }
   Serial.println("\nConnected to the WiFi network");
@@ -49,10 +51,10 @@ void connect_wifi()
   Serial.println(WiFi.gatewayIP());
   Serial.print("[+] Subnet Mask : ");
   Serial.println(WiFi.subnetMask());
-  Serial.println((String)"[+] RSSI : " + WiFi.RSSI() + " dB");
+  Serial.printf("[+] RSSI : %d dB\n", WiFi.RSSI());
 }
 
-String get_wifi_status(int status){
+std::string get_wifi_status(int status){
     switch(status){
         case WL_IDLE_STATUS:
         return "WL_IDLE_STATUS";
@@ -69,6 +71,6 @@ String get_wifi_status(int status){
         case WL_DISCONNECTED:
         return "WL_DISCONNECTED";
     }
-    return String("no status case");
+    return std::string("no status case");
 }
 

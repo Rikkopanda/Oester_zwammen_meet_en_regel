@@ -77,10 +77,10 @@ lastPrintTime = millis();
 }
 } else {
 // Checksum error
-Serial.println("Checksum error!");
+Serial.printf("Checksum error!");
 }
 } else {
 // Invalid header
-Serial.println("Invalid data packet header!");
+Serial.printf("Invalid data packet header!");
 }
 }

@@ -47,7 +47,7 @@ void setup()
 //   uart2.begin(9600, SERIAL_8N1, 16, 17);
 
 	Serial.begin(115200); // You can change this baud rate based on your needs
-	Serial.println("start");
+	Serial.printf("start");
 }
 
 void read_co2_sensor()
@@ -63,12 +63,11 @@ void read_co2_sensor()
 		}
 		if ((dataPacket[0] == 0x42 && dataPacket[1] == 0x4D))
 		{
-			Serial.println();
 			int Co2Value = ((int)dataPacket[6] << 8) | (int)dataPacket[7];
 			Serial.printf("CO2 (ppm): %d\n", Co2Value);
 		}
 		else
-			Serial.println("Invalid data packet header!");
+			Serial.printf("Invalid data packet header!\n");
 	}
 }
 

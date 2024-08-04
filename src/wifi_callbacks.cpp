@@ -3,7 +3,7 @@
 #include <config.h>
 
 
-void pump_callback_action(String &data)
+void pump_callback_action(std::string &data)
 {
 	if (data == "true")
 		digitalWrite(PUMP_PIN, HIGH);
@@ -12,7 +12,7 @@ void pump_callback_action(String &data)
   Serial.printf("setting pin %d to %s\n", PUMP_PIN, data);
 }
 
-void nevelaar_callback_action(String &data)
+void nevelaar_callback_action(std::string &data)
 {
   if (data == "true")
     digitalWrite(NEVELAAR_PIN, HIGH);
@@ -21,7 +21,7 @@ void nevelaar_callback_action(String &data)
   Serial.printf("setting pin %d to %s\n", NEVELAAR_PIN, data);
 }
 
-void lucht_aanvoer_callback_action(String &data)
+void lucht_aanvoer_callback_action(std::string &data)
 {
 	if (data == "true")
 		digitalWrite(LUCHT_AANVOER_PIN, HIGH);
@@ -35,11 +35,11 @@ void lucht_aanvoer_callback_action(String &data)
  * 
  * Sets the pump on or off based on message
 */
-void callback(char *topic, byte *payload, unsigned int length)
+void callback(char *topic, uint8_t *payload, unsigned int length)
 {
   Serial.print("Message arrived in topic: ");
   Serial.println(topic);
-  String data = "";
+  std::string data = "";
   for (int i = 0; i < length; i++) {
     Serial.print((char)payload[i]);
     data += (char)payload[i];

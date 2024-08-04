@@ -9,13 +9,13 @@
 void setup() {
   Wire.begin();
   Serial.begin(115200);
-  Serial.println("\nI2C Scanner");
+  Serial.printf("\nI2C Scanner");
 }
  
 void loop() {
   byte error, address;
   int nDevices;
-  Serial.println("Scanning...");
+  Serial.printf("Scanning...");
   nDevices = 0;
   for(address = 1; address < 127; address++ ) {
     Wire.beginTransmission(address);
@@ -37,10 +37,10 @@ void loop() {
     }    
   }
   if (nDevices == 0) {
-    Serial.println("No I2C devices found\n");
+    Serial.printf("No I2C devices found\n");
   }
   else {
-    Serial.println("done\n");
+    Serial.printf("done\n");
   }
   delay(5000);          
 }

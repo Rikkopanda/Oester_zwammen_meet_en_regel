@@ -3,11 +3,13 @@
 #include <PubSubClient.h>
 #include "config.h"
 #include <CAN.h>
-
+#include <SPI.h>
+#include <Adafruit_Sensor.h>
+#include "Adafruit_BME680.h"
 //wifi
 WiFiClient    espClient;
-const char*   ssid = "Michiel de Router";
-const char*   password = "943427963EC7";
+const char*   ssid = SSID_MOBIEL;
+const char*   password = PASSWORD_MOBIEL;
 
 //mqtt
 PubSubClient  client(espClient); // creates a pub sub client 
@@ -33,12 +35,13 @@ char  			sensor_value_str[16];
 int   			button_state;
 int   			last_button_state;
 
+Adafruit_BME680 bme_0x77; // I2C
+Adafruit_BME680 bme_0x76; // I2C
+
 // Define the CO2 sensor serial interface
 HardwareSerial sensorSerial(2); // RX, TX
 
-// Define the number of bytes in a data packet
-#define DATA_PACKET_SIZE 16
-#define CO2_BUFFER_SIZE 60
+
 
 // Initialize an array to store CO2 values
 uint16_t co2Values[CO2_BUFFER_SIZE];
@@ -56,18 +59,20 @@ void setup()
   Serial.begin(115200);
 
   // Set the pins
-  CAN.setPins (RX_GPIO_NUM, TX_GPIO_NUM);
+  // CAN.setPins (RX_GPIO_NUM, TX_GPIO_NUM);
 
-  // start the CAN bus at 500 kbps
-  if (!CAN.begin(50E3)) {
-    Serial.println ("Starting CAN failed!");
-    while (1);
-  }
-  else {
-    Serial.println ("CAN Initialized");
-  }
+  // // start the CAN bus at 500 kbps
+  // if (!CAN.begin(50E3)) {
+  //   Serial.printf ("Starting CAN failed!");
+  //   while (1);
+  // }
+  // else {
+  //   Serial.printf ("CAN Initialized");
+  // }
 
-
+  bme_setup_and_init(&bme_0x76);
+  bme_setup_and_init(&bme_0x77);
+  
   pinMode(PUMP_PIN, OUTPUT);
   pinMode(NEVELAAR_PIN, OUTPUT);
   pinMode(LUCHT_AANVOER_PIN, OUTPUT);
@@ -83,35 +88,6 @@ void setup()
   time_interval = 5000UL;
 }
 
-void publish_int(const char *topic, int val)
-{
-    itoa(val, sensor_value_str, 10);
-    client.publish(topic, sensor_value_str);
-}
-
-void read_co2_sensor()
-{
-	if (sensorSerial.available() >= 0)
-	{
-		uint8_t dataPacket[DATA_PACKET_SIZE];
-		sensorSerial.readBytes(dataPacket, DATA_PACKET_SIZE);
-		Serial.print("Raw data: ");
-		for (int i = 0; i < DATA_PACKET_SIZE; i++)
-		{
-			Serial.printf("%02X ", dataPacket[i]);
-		}
-		if ((dataPacket[0] == 0x42 && dataPacket[1] == 0x4D))
-		{
-			Serial.println();
-			int Co2Value = ((int)dataPacket[6] << 8) | (int)dataPacket[7];
-			Serial.printf("CO2 (ppm): %d\n", Co2Value);
-      publish_int(CO2_topic, Co2Value);
-		}
-		else
-			Serial.println("Invalid data packet header!");
-	}
-}
-
 void loop()
 {
   // canSender();
@@ -122,8 +98,9 @@ void loop()
   {
     activate_sensor();
     read_co2_sensor();
+    read_bme_publish(&bme_0x77, std::string("bme_0x77"));
+    read_bme_publish(&bme_0x76, std::string("bme_0x76"));
 
-    
     // publish_int(moisture_topic, sensor_values[MOISTURE_I]);
     // publish_int(temp_topic, sensor_values[TEMP_SENSOR_I]);
     // publish_int(CO2_topic, sensor_values[CO2_SENSOR_I]);
@@ -143,7 +120,6 @@ void canSender() {
   
   if (ret == 1)
     return;
-  
   // CAN.beginExtendedPacket(0xabcdef);
   CAN.write ('1'); //write data to buffer. data is not sent until endPacket() is called.
   CAN.write ('2');
@@ -160,7 +136,7 @@ void canSender() {
   CAN.beginPacket (0x12, 3, true);
   CAN.endPacket();
 
-  Serial.println ("done");
+  Serial.printf ("done");
 
   delay (1000);
 }
@@ -235,12 +211,12 @@ int activate_sensor()
 //   else if (button_state == LOW && last_button_state == HIGH)
 //   {
 //     client.publish(status_esp32_B, "field button off");
-//     Serial.println("turn on pump");
+//     Serial.printf("turn on pump");
 //   }
 //   else if (button_state == HIGH && last_button_state == LOW)
 //   {
 //     client.publish(status_esp32_B, "field button on");
-//     Serial.println("turn off pump");
+//     Serial.printf("turn off pump");
 //   }
 // }
 
