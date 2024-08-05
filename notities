@@ -22,6 +22,5 @@ lib_deps =
 	adafruit/Adafruit Unified Sensor@^1.1.14
 	adafruit/Adafruit BME680 Library@^2.0.4
 	adafruit/Adafruit BusIO@^1.16.1
-
-; build_src_filter = 
-; 	+<aansturen_humidity_test.cpp>
+build_src_filter = 
+ 	+<aansturen_humidity_test.cpp>

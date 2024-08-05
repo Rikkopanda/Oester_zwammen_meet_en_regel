@@ -10,6 +10,6 @@ Import("env")
 # Load the configuration
 with open('config.json') as config_file:
     config = json.load(config_file)
-    desired_mac = config['DESIRED_MAC_3']
+    desired_mac = config['DESIRED_MAC_1']
     
 scan_ports_mac_addresses(env, desired_mac)
