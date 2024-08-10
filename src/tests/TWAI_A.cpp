@@ -5,18 +5,12 @@
 #include <CAN.h>
 #include "driver/twai.h"
 #include "driver/gpio.h"
+#include "TWAI_custom.hpp"
 
 
-const int MySerialRX = 16;
-const int MySerialTX = 17;
+const int MySerialRX = 18;
+const int MySerialTX = 19;
 
-// Configure message to transmit
-twai_message_t message = {
-    // Message ID and payload
-    .identifier = 0x00AA,
-    .data_length_code = 4,
-    .data = {0,1,2,3}
-};
 
 void setup()
 {
@@ -40,17 +34,57 @@ void setup()
         Serial.printf("Failed to start driver\n");
         return;
     }
+    //Reconfigure alerts to detect Error Passive and Bus-Off error states
+    uint32_t alerts_to_enable = TWAI_ALERT_ERR_PASS | TWAI_ALERT_BUS_OFF;
+    if (twai_reconfigure_alerts(alerts_to_enable, NULL) == ESP_OK) {
+        printf("Alerts reconfigured\n");
+    } else {
+        printf("Failed to reconfigure alerts");
+    }
+
+
+}
+int err;
+uint8_t y = 0;
+twai_status_info_t info;
+int ret;
+
+void loop()
+{
+    twai_clear_transmit_queue();
+    // Configure message to transmit
+    twai_message_t message = {
+        // Message ID and payload
+        .identifier = 0x00AA,
+        .data_length_code = 4,
+        .data = {0,1,2,3}
+    };
     message.extd = 1;              // Standard vs extended format
     message.rtr = 0;               // Data vs RTR frame
     message.ss = 0;                // Whether the message is single shot (i.e., does not repeat on error)
     message.self = 0;              // Whether the message is a self reception request (loopback)
     message.dlc_non_comp = 0;      // DLC is less than 8
-}
-int err;
-uint8_t y = 0;
-void loop()
-{
+    // delay(100);
+    twai_get_status_info(&info);
+    // Serial.printf("Status : %d\n", info.state);
+    print_twai(info.state, TWAI_STATUS);
+
+    //Block indefinitely until an alert occurs
+    uint32_t alerts_triggered;
+    twai_read_alerts(&alerts_triggered, pdMS_TO_TICKS(100));
     //Process received message
+    if (info.state == TWAI_STATE_BUS_OFF)
+        twai_initiate_recovery();
+    else if (info.state == TWAI_STATE_STOPPED)
+    {
+        if (twai_start() == ESP_OK) {
+            Serial.printf("Driver started\n");
+        } else {
+            Serial.printf("Failed to start driver\n");
+            return;
+        }
+    }
+
     Serial.printf("Transmit: ......\n");
     for (int x = 0; x < 4; x++)
     {
@@ -58,24 +92,24 @@ void loop()
         y++;
     }
     //Queue message for transmission
-    if (twai_transmit(&message, pdMS_TO_TICKS(1000)) == ESP_OK) {
-        Serial.printf("Message queued for transmission\n");
-    } else {
-        Serial.printf("Failed to queue message for transmission: ERROR=%d\n", err);
-    }
+      
+    ret = twai_transmit(&message, pdMS_TO_TICKS(1000));
+
+    print_twai(ret, TRANSMIT_RECEIVE_START_STOP);
+    // if (ret != ESP_OK)
+    //     return;
+
     //Process received message
     Serial.printf("Receiving: ......\n");
 
     //Wait for message to be received
     twai_message_t receive_message;
-    Serial.println("receive ret: " + twai_receive(&receive_message, pdMS_TO_TICKS(10000)));
 
-    // if (twai_receive(&receive_message, pdMS_TO_TICKS(10000)) == ESP_OK) {
-    //     Serial.printf("Message received\n");
-    // } else {
-    //     Serial.printf("Failed to receive message: ERROR=%d\n", err);
-    //     return;
-    // }
+    ret = twai_receive(&receive_message, pdMS_TO_TICKS(1000));
+
+    print_twai(ret, TRANSMIT_RECEIVE_START_STOP);
+    if (ret != ESP_OK)
+        return;
 
     if (receive_message.extd) {
         Serial.printf("Message is in Extended Format\n");
