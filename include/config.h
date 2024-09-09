@@ -12,8 +12,10 @@ extern const char    *nevelaar_topic;
 extern const char    *lucht_aanvoer_topic;
 //to publish topics
 extern const char    *CO2_topic;
-extern const char    *temp_topic;
-extern const char    *moisture_topic;
+// extern const char    *temp_topic;
+// extern const char    *moisture_topic;
+extern const char    moisture_topic[2][22];
+extern const char    temp_topic[2][22];
 
 extern const char    *status_esp32_A;
 extern const char    *mqtt_username;
@@ -34,7 +36,6 @@ typedef struct s_callback_func_entry
 } t_callback_func_entry;
 
 extern const t_callback_func_entry callback_table[3];
-
 
 #define ONE_MINUTE 60 * 1000
 #define TWO_SECONDS 2000
@@ -62,6 +63,12 @@ enum e_inputs
   TEMP_SENSOR_PIN = 35
 };
 
+enum e_bme_sensor_indexes
+{
+  BME_680,
+  BME_280
+};
+
 enum e_sensor_array_indexes
 {
 	CO2_SENSOR_I,
@@ -70,7 +77,8 @@ enum e_sensor_array_indexes
 };
 //------wifi-------
 #define       SSID_MOBIEL "V30_9620"
-#define       PASSWORD_MOBIEL "hoi1hoi1"
+#define       PASSWORD_MOBIEL "schildpad"
+
 void 	  connect_broker();
 void 	  connect_wifi();
 std::string	get_wifi_status(int status);
@@ -91,7 +99,8 @@ void publish_int(const char *topic, int val);
 #define DATA_PACKET_SIZE 16
 #define CO2_BUFFER_SIZE 60
 class HardwareSerial;
-void read_co2_sensor();
+void read_co2_sensor_CH8();
+void read_co2_sensor_MHZ19C();
 extern HardwareSerial sensorSerial; // RX, TX
 
 
@@ -102,11 +111,11 @@ void canReceiver();
 //------bme_sensor-------
 #define SEALEVELPRESSURE_HPA (1013.25)
 class Adafruit_BME680;
+class Adafruit_BME280;
 
-void bme_setup_and_init(Adafruit_BME680 *bme_sensor);
-void read_bme_publish(Adafruit_BME680 *bme_sensor, std::string name);
-
-
-
+void bme680_setup_and_init(Adafruit_BME680 *bme_sensor, std::string name);
+void bme280_setup_and_init(Adafruit_BME280 *bme_sensor, std::string name);
+void read_bme680_publish(Adafruit_BME680 *bme_sensor, std::string name);
+void read_bme280_publish(Adafruit_BME280 *bme_sensor, std::string name);
 
 #endif

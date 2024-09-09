@@ -2,7 +2,6 @@
 #include <PubSubClient.h>
 #include <config.h>
 
-
 void pump_callback_action(std::string &data)
 {
 	if (data == "true")
@@ -29,6 +28,7 @@ void lucht_aanvoer_callback_action(std::string &data)
 		digitalWrite(LUCHT_AANVOER_PIN, LOW);
   Serial.printf("setting pin %d to %s\n", LUCHT_AANVOER_PIN, data);
 }
+
 /**
  * 
  * gets called whenever message is received in a subscribed topic

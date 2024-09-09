@@ -97,6 +97,4 @@ void loop()
             Serial.printf("Data byte %d = %d\n", i, receive_message.data[i]);
         }
     }
-
-
 }

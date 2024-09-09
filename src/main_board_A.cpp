@@ -6,6 +6,9 @@
 #include <SPI.h>
 #include <Adafruit_Sensor.h>
 #include "Adafruit_BME680.h"
+#include "Adafruit_BME280.h"
+
+
 //wifi
 WiFiClient    espClient;
 const char*   ssid = SSID_MOBIEL;
@@ -15,9 +18,10 @@ const char*   password = PASSWORD_MOBIEL;
 PubSubClient  client(espClient); // creates a pub sub client 
 const char    *mqtt_broker = "test.mosquitto.org";
 
-const char    *moisture_topic = "moisture_meter";
+const char    moisture_topic[2][22] = {"moisture_meter_680_1", "moisture_meter_280_1"};
+
 const char    *CO2_topic = "CO2_meter";
-const char    *temp_topic = "temp_meter";
+const char    temp_topic[2][22] = {"temp_meter_680_1", "temp_meter_280_1"};
 
 //subscribe topics
 const char    *pump_topic = "pump";
@@ -36,7 +40,8 @@ int   			button_state;
 int   			last_button_state;
 
 Adafruit_BME680 bme_0x77; // I2C
-Adafruit_BME680 bme_0x76; // I2C
+Adafruit_BME280 bme_280_1;
+// Adafruit_BME280 bme_280_2; // I2C
 
 // Define the CO2 sensor serial interface
 HardwareSerial sensorSerial(2); // RX, TX
@@ -44,7 +49,8 @@ HardwareSerial sensorSerial(2); // RX, TX
 
 
 // Initialize an array to store CO2 values
-uint16_t co2Values[CO2_BUFFER_SIZE];
+// uint16_t co2Values[CO2_BUFFER_SIZE];
+int Co2Value;
 
 const t_callback_func_entry callback_table[3] = {
 			{pump_topic, pump_callback_action},
@@ -69,9 +75,10 @@ void setup()
   // else {
   //   Serial.printf ("CAN Initialized");
   // }
+  // bme280_setup_and_init(&bme_280_2, "bme_280_2");
 
-  bme_setup_and_init(&bme_0x76);
-  bme_setup_and_init(&bme_0x77);
+  bme280_setup_and_init(&bme_280_1, "bme_280_1");
+  bme680_setup_and_init(&bme_0x77, "bme_0x77");
   
   pinMode(PUMP_PIN, OUTPUT);
   pinMode(NEVELAAR_PIN, OUTPUT);
@@ -96,50 +103,49 @@ void loop()
   // checks for new incoming messages from subscribed topics, excucutes callback funcion}
   if (check_interval() == true)
   {
-    activate_sensor();
-    read_co2_sensor();
-    read_bme_publish(&bme_0x77, std::string("bme_0x77"));
-    read_bme_publish(&bme_0x76, std::string("bme_0x76"));
+    // activate_sensor();
+    read_co2_sensor_MHZ19C();
+    read_bme680_publish(&bme_0x77, std::string("bme_0x77"));
+    read_bme280_publish(&bme_280_1, std::string("bme_280_1"));
 
     // publish_int(moisture_topic, sensor_values[MOISTURE_I]);
     // publish_int(temp_topic, sensor_values[TEMP_SENSOR_I]);
     // publish_int(CO2_topic, sensor_values[CO2_SENSOR_I]);
-    
     time_interval = millis() + 200UL;
     // Serial.printf("time: %ld\t time_interval %ld:\n", millis(), time_interval);
   }
 }
 
-void canSender() {
-  // send packet: id is 11 bits, packet can contain up to 8 bytes of data
-  Serial.print ("Sending packet ... ");
+// void canSender() {
+//   // send packet: id is 11 bits, packet can contain up to 8 bytes of data
+//   Serial.print ("Sending packet ... ");
 
-  int ret = CAN.beginPacket (0x12);  //sets the ID and clears the transmit buffer
+//   int ret = CAN.beginPacket (0x12);  //sets the ID and clears the transmit buffer
 
-  Serial.printf("return beginPacket: %d\n", ret);
+//   Serial.printf("return beginPacket: %d\n", ret);
   
-  if (ret == 1)
-    return;
-  // CAN.beginExtendedPacket(0xabcdef);
-  CAN.write ('1'); //write data to buffer. data is not sent until endPacket() is called.
-  CAN.write ('2');
-  CAN.write ('3');
-  CAN.write ('4');
-  CAN.write ('5');
-  CAN.write ('6');
-  CAN.write ('7');
-  CAN.write ('8');
-  CAN.endPacket();
-  Serial.printf("return endPacket: %d\n", ret);
+//   if (ret == 1)
+//     return;
+//   // CAN.beginExtendedPacket(0xabcdef);
+//   CAN.write ('1'); //write data to buffer. data is not sent until endPacket() is called.
+//   CAN.write ('2');
+//   CAN.write ('3');
+//   CAN.write ('4');
+//   CAN.write ('5');
+//   CAN.write ('6');
+//   CAN.write ('7');
+//   CAN.write ('8');
+//   CAN.endPacket();
+//   Serial.printf("return endPacket: %d\n", ret);
 
-  //RTR packet with a requested data length
-  CAN.beginPacket (0x12, 3, true);
-  CAN.endPacket();
+//   //RTR packet with a requested data length
+//   CAN.beginPacket (0x12, 3, true);
+//   CAN.endPacket();
 
-  Serial.printf ("done");
+//   Serial.printf ("done");
 
-  delay (1000);
-}
+//   delay (1000);
+// }
 
 
 /**

@@ -1,8 +1,6 @@
 
 
 
-platformio handigheidjes:
-pio run monitor --filter esp32-serial-decoder //bij Guru meditation error
 
 [env:A]
 build_src_filter = 
@@ -22,5 +20,34 @@ lib_deps =
 	adafruit/Adafruit Unified Sensor@^1.1.14
 	adafruit/Adafruit BME680 Library@^2.0.4
 	adafruit/Adafruit BusIO@^1.16.1
+	adafruit/Adafruit BME280 Library@^2.2.4
+
+
+;-------can--------
+[env:TWAI_A]
+extra_scripts = pre:scripts/pre_upload_conf_1.py
 build_src_filter = 
- 	+<aansturen_humidity_test.cpp>
+	+<tests/TWAI_A.cpp>
+	+<tests/TWAI.cpp>
+lib_deps = handmade0octopus/ESP32-TWAI-CAN@^1.0.1
+
+[env:TWAI_B]
+extra_scripts = pre:scripts/pre_upload_conf_2.py
+build_src_filter = 
+	+<tests/TWAI_B.cpp>
+	+<tests/TWAI.cpp>
+lib_deps = handmade0octopus/ESP32-TWAI-CAN@^1.0.1
+
+; [env:test_i2c]
+; build_src_filter = 
+; 	+<tests/I2C_scanner.cpp>
+; lib_deps = handmade0octopus/ESP32-TWAI-CAN@^1.0.1
+; 	Wire
+; 	plerup/EspSoftwareSerial@^8.2.0
+; 	knolleary/PubSubClient@^2.8
+; 	madhephaestus/ESP32Servo@^3.0.5
+; 	adafruit/Adafruit Unified Sensor@^1.1.14
+; 	adafruit/Adafruit BME680 Library@^2.0.4
+; 	adafruit/Adafruit BusIO@^1.16.1
+; 	adafruit/Adafruit BME280 Library@^2.2.4
+; 	SPI

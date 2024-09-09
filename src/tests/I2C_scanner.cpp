@@ -7,7 +7,7 @@
 #include <Arduino.h>
 
 void setup() {
-  Wire.begin();
+  Wire.begin(21, 22);
   Serial.begin(115200);
   Serial.printf("\nI2C Scanner");
 }

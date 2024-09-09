@@ -7,20 +7,24 @@
 #include <SPI.h>
 #include <Adafruit_Sensor.h>
 #include "Adafruit_BME680.h"
+#include "Adafruit_BME280.h"
 #include "config.h"
 
-extern Adafruit_BME680 bme_0x77; // I2C
-extern Adafruit_BME680 bme_0x76; // I2C
+// extern Adafruit_BME680 bme_0x77; // I2C
+extern Adafruit_BME280 bme_280_1; // I2C
+// extern Adafruit_BME280 bme_280_2; // I2C
 
 /**
  *  Tries to initialize sensor
  * 
  *  Sets up oversampling and filter initialization
  */
-void bme_setup_and_init(Adafruit_BME680 *bme_sensor)
+void bme680_setup_and_init(Adafruit_BME680 *bme_sensor, std::string name)
 {
-  if (!bme_0x76.begin()) {
-    Serial.println(F("Could not find a valid BME680 0x76 sensor, check wiring!"));
+  if (!bme_sensor->begin()) {
+    Serial.print("Could not find a valid BME680 ");
+    Serial.print(name.c_str());
+    Serial.println("try to check wiring");
     while (1);
   }
 
@@ -30,6 +34,24 @@ void bme_setup_and_init(Adafruit_BME680 *bme_sensor)
   bme_sensor->setIIRFilterSize(BME680_FILTER_SIZE_3);
   bme_sensor->setGasHeater(320, 150); // 320*C for 150 ms
 }
+
+void bme280_setup_and_init(Adafruit_BME280 *bme_sensor, std::string name)
+{
+  if (!bme_sensor->begin(0x76)) {
+    Serial.print("Could not find a valid BME280 ");
+    Serial.print(name.c_str());
+    Serial.println("try to check wiring");
+    while (1);
+  }
+  else
+    Serial.printf("succeeded finding: %s\n", name.c_str());
+
+  // bme_sensor->getHumiditySensor();
+  // bme_sensor->set();
+  // bme_sensor->readPressure();
+  // bme_sensor->readAltitude(SEALEVELPRESSURE_HPA);
+}
+
 
 void read_bme(Adafruit_BME680 *bme_sensor, std::string name)
 {
@@ -84,7 +106,24 @@ void read_bme(Adafruit_BME680 *bme_sensor, std::string name)
 }
 
 
-void read_bme_publish(Adafruit_BME680 *bme_sensor, std::string name)
+void read_bme280_publish(Adafruit_BME280 *bme_sensor, std::string name)
+{
+  Serial.print(F("280!! \nTemperature = "));
+  Serial.print(bme_sensor->readTemperature());
+  Serial.print(F(" *C\n"));
+
+  // Serial.print(F("Pressure = "));
+  // Serial.print(bme_sensor->pressure / 100.0);
+  // Serial.println(F(" hPa"));
+
+  Serial.print(F("Humidity = "));
+  Serial.print(bme_sensor->readHumidity());
+  Serial.print(F(" %\n"));
+  publish_int(temp_topic[BME_680], bme_sensor->readTemperature());
+  publish_int(moisture_topic[BME_680], bme_sensor->readHumidity());
+}
+
+void read_bme680_publish(Adafruit_BME680 *bme_sensor, std::string name)
 {
  // Tell BME680 to begin measurement.
   unsigned long endTime = bme_sensor->beginReading();
@@ -93,13 +132,13 @@ void read_bme_publish(Adafruit_BME680 *bme_sensor, std::string name)
     return;
   }
   Serial.print(name.c_str());
-  Serial.print(F(" reading started at "));
+  Serial.print(F(" 680!!\nreading started at "));
   Serial.print(millis());
   Serial.print(F(" and will finish at "));
   Serial.println(endTime);
 
   // Serial.println(F("You can do other work during BME680 measurement."));
-  delay(50); // This represents parallel work.
+  // delay(50); // This represents parallel work.
   // There's no need to delay() until millis() >= endTime: bme.endReading()
   // takes care of that. It's okay for parallel work to take longer than
   // BME680's measurement time.
@@ -116,7 +155,7 @@ void read_bme_publish(Adafruit_BME680 *bme_sensor, std::string name)
   Serial.print(F("Temperature = "));
   Serial.print(bme_sensor->temperature);
   Serial.print(F(" *C\n"));
-  publish_int(temp_topic, bme_sensor->temperature);
+  publish_int(temp_topic[BME_280], bme_sensor->temperature);
 
   // Serial.print(F("Pressure = "));
   // Serial.print(bme_sensor->pressure / 100.0);
@@ -125,7 +164,7 @@ void read_bme_publish(Adafruit_BME680 *bme_sensor, std::string name)
   Serial.print(F("Humidity = "));
   Serial.print(bme_sensor->humidity);
   Serial.print(F(" %\n"));
-  publish_int(moisture_topic, bme_sensor->humidity);
+  publish_int(moisture_topic[BME_280], bme_sensor->humidity);
 
   // Serial.print(F("Gas = "));
   // Serial.print(bme_sensor->gas_resistance / 1000.0);

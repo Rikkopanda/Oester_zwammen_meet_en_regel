@@ -37,7 +37,7 @@ HardwareSerial sensorSerial(2); // RX, TX
 #define CO2_BUFFER_SIZE 60
 
 // Initialize an array to store CO2 values
-uint16_t co2Values[CO2_BUFFER_SIZE];
+// uint16_t co2Values[CO2_BUFFER_SIZE];
 
 
 void setup()
@@ -50,7 +50,7 @@ void setup()
 	Serial.printf("start");
 }
 
-void read_co2_sensor()
+void read_co2_sensorCH8()
 {
 	if (sensorSerial.available() >= 0)
 	{
@@ -63,7 +63,7 @@ void read_co2_sensor()
 		}
 		if ((dataPacket[0] == 0x42 && dataPacket[1] == 0x4D))
 		{
-			int Co2Value = ((int)dataPacket[6] << 8) | (int)dataPacket[7];
+			Co2Value = ((int)dataPacket[6] << 8) | (int)dataPacket[7];
 			Serial.printf("CO2 (ppm): %d\n", Co2Value);
 		}
 		else

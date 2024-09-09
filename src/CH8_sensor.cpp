@@ -1,7 +1,9 @@
 #include "config.h"
 #include <Arduino.h>
 
-void read_co2_sensor()
+extern int Co2Value;
+
+void read_co2_sensor_CH8()
 {
 	if (sensorSerial.available() >= 0)
 	{
@@ -14,7 +16,7 @@ void read_co2_sensor()
 		}
 		if ((dataPacket[0] == 0x42 && dataPacket[1] == 0x4D))
 		{
-			int Co2Value = ((int)dataPacket[6] << 8) | (int)dataPacket[7];
+			Co2Value = ((int)dataPacket[6] << 8) | (int)dataPacket[7];
 			Serial.printf("CO2 (ppm): %d\n", Co2Value);
       		publish_int(CO2_topic, Co2Value);
 		}
