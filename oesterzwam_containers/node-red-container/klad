@@ -1,0 +1,5 @@
+
+
+data die tijdens de image geschreven zijn in bijv. /data worden overschreven
+mocht er bij het opstarten die DIR (/data) door een volume of mount gebruikt worden
+

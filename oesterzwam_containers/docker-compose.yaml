@@ -1,0 +1,33 @@
+
+################################################################################
+# docker stack deploy node-red --compose-file docker-compose-node-red.yml
+# docker-compose -f docker-compose-node-red.yml -p myNoderedProject up
+################################################################################
+version: "3.7"
+
+services:
+  node-red:
+    build: node-red-container/
+    container_name: node-red-oesterzwam
+    depends_on:
+      - db
+    ports:
+      - "1880:1880"
+    volumes:
+      - oester-nodered-data:/data  # Named volume for persisting Node-RED data
+    restart: unless-stopped        # Automatically restart the container unless it is explicitly stopped
+  db:
+    build: my_sql_container/
+    container_name: mysql-database-oesterzwam
+    environment:
+      - MYSQL_ROOT_PASSWORD=schildpad
+    volumes:
+      - oester-mysql-data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    restart: unless-stopped
+volumes:
+  oester-nodered-data:
+    driver: local
+  oester-mysql-data:
+    driver: local

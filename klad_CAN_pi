@@ -1,0 +1,22 @@
+https://www.beyondlogic.org/adding-can-controller-area-network-to-the-raspberry-pi/
+
+
+ID EEPROM moet er zijn op de HAT(hardware on top) om de CAN controller the ontdekken
+
+
+/boot/config.txt file:(toevoegen)
+dtoverlay=mcp2515-can0,oscillator=8000000,interrupt=25 
+
+interface opzetten:
+ sudo /sbin/ip link set can0 up type can bitrate 500000 
+automatisch (/etc/network/interfaces):
+auto can0
+iface can0 inet manual
+    pre-up /sbin/ip link set can0 type can bitrate 500000 triple-sampling on restart-ms 100
+    up /sbin/ifconfig can0 up
+    down /sbin/ifconfig can0 down
+
+sudo apt-get install can-utils 
+
+
+met hardware filtering??: can4linux

@@ -1,0 +1,33 @@
+
+https://medium.com/towards-data-engineering/dockerize-your-databases-a-step-by-step-guide-to-mysql-containerization-8dc2deabeebd
+
+
+
+docker inspect container
+zie de IP en port
+
+mysql -uroot -p -P3307 -h127.0.0.1
+
+mysql -uroot -p -A
+
+
+SHOW DATABASES;
+
+
+CREATE DATABASE sensor_levels;
+
+USE sensor_levels;
+
+CREATE TABLE IF NOT EXISTS moisture (
+    ID INT PRIMARY KEY,
+    Name VARCHAR(255)
+);
+
+
+INSERT INTO moisture (ID, Name)
+VALUES (1, 'Item 1'),
+       (2, 'Item 2'),
+       (3, 'Item 3');
+
+
+SELECT * FROM IronContainer
