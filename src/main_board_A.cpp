@@ -77,9 +77,6 @@ void setup()
   // }
   // bme280_setup_and_init(&bme_280_2, "bme_280_2");
 
-  bme280_setup_and_init(&bme_280_1, "bme_280_1");
-  bme680_setup_and_init(&bme_0x77, "bme_0x77");
-  
   pinMode(PUMP_PIN, OUTPUT);
   pinMode(NEVELAAR_PIN, OUTPUT);
   pinMode(LUCHT_AANVOER_PIN, OUTPUT);
@@ -93,6 +90,9 @@ void setup()
   client.subscribe(lucht_aanvoer_topic);
 
   time_interval = 5000UL;
+  bme280_setup_and_init(&bme_280_1, "bme_280_1");
+  bme680_setup_and_init(&bme_0x77, "bme_0x77");
+  
 }
 
 void loop()

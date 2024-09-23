@@ -56,7 +56,7 @@ void emergency_stop ()
 	emergency_stop_hit = true;
 }
 const byte ledPin = 12;
-const uint32_t freq = 1700000; // 1.7Mhz
+const uint32_t freq = 170000; // 1.7Mhz
 const uint8_t ledChannel = 0;
 const uint8_t resolution = 3;
 void setup()

@@ -10,7 +10,7 @@
 #include "Adafruit_BME280.h"
 #include "config.h"
 
-// extern Adafruit_BME680 bme_0x77; // I2C
+extern Adafruit_BME680 bme_0x77; // I2C
 extern Adafruit_BME280 bme_280_1; // I2C
 // extern Adafruit_BME280 bme_280_2; // I2C
 
@@ -21,7 +21,7 @@ extern Adafruit_BME280 bme_280_1; // I2C
  */
 void bme680_setup_and_init(Adafruit_BME680 *bme_sensor, std::string name)
 {
-  if (!bme_sensor->begin()) {
+  if (!bme_sensor->begin(0x77)) {
     Serial.print("Could not find a valid BME680 ");
     Serial.print(name.c_str());
     Serial.println("try to check wiring");

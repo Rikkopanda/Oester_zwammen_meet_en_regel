@@ -76,8 +76,11 @@ enum e_sensor_array_indexes
 	TEMP_SENSOR_I
 };
 //------wifi-------
-#define       SSID_MOBIEL "V30_9620"
-#define       PASSWORD_MOBIEL "schildpad"
+// #define       SSID_MOBIEL "V30_9620"
+// #define       PASSWORD_MOBIEL "schildpad"
+
+#define       SSID_MOBIEL "TP-LINK_6CE1"
+#define       PASSWORD_MOBIEL "06904135"
 
 void 	  connect_broker();
 void 	  connect_wifi();
