@@ -76,7 +76,6 @@ void setup()
   //   Serial.printf ("CAN Initialized");
   // }
   // bme280_setup_and_init(&bme_280_2, "bme_280_2");
-
   pinMode(PUMP_PIN, OUTPUT);
   pinMode(NEVELAAR_PIN, OUTPUT);
   pinMode(LUCHT_AANVOER_PIN, OUTPUT);
@@ -92,7 +91,6 @@ void setup()
   time_interval = 5000UL;
   bme280_setup_and_init(&bme_280_1, "bme_280_1");
   bme680_setup_and_init(&bme_0x77, "bme_0x77");
-  
 }
 
 void loop()
@@ -123,7 +121,7 @@ void loop()
 //   int ret = CAN.beginPacket (0x12);  //sets the ID and clears the transmit buffer
 
 //   Serial.printf("return beginPacket: %d\n", ret);
-  
+
 //   if (ret == 1)
 //     return;
 //   // CAN.beginExtendedPacket(0xabcdef);
@@ -137,13 +135,10 @@ void loop()
 //   CAN.write ('8');
 //   CAN.endPacket();
 //   Serial.printf("return endPacket: %d\n", ret);
-
 //   //RTR packet with a requested data length
 //   CAN.beginPacket (0x12, 3, true);
 //   CAN.endPacket();
-
 //   Serial.printf ("done");
-
 //   delay (1000);
 // }
 
