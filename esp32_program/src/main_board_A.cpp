@@ -7,6 +7,10 @@
 #include <Adafruit_Sensor.h>
 #include "Adafruit_BME680.h"
 #include "Adafruit_BME280.h"
+#include <CAN.h>
+#include "driver/twai.h"
+#include "driver/gpio.h"
+#include "TWAI_custom.hpp"
 
 
 //wifi
@@ -80,17 +84,18 @@ void setup()
   pinMode(NEVELAAR_PIN, OUTPUT);
   pinMode(LUCHT_AANVOER_PIN, OUTPUT);
 
-  connect_wifi();
-  connect_broker();
+  configure_twai_can();
+  // connect_wifi();
+  // connect_broker();
   
-  client.publish(status_esp32_A, "Hi, I'm ESP32 A ^^");
-  client.subscribe(pump_topic);
-  client.subscribe(nevelaar_topic);
-  client.subscribe(lucht_aanvoer_topic);
+  // client.publish(status_esp32_A, "Hi, I'm ESP32 A ^^");
+  // client.subscribe(pump_topic);
+  // client.subscribe(nevelaar_topic);
+  // client.subscribe(lucht_aanvoer_topic);
 
   time_interval = 5000UL;
-  bme280_setup_and_init(&bme_280_1, "bme_280_1");
-  bme680_setup_and_init(&bme_0x77, "bme_0x77");
+  // bme280_setup_and_init(&bme_280_1, "bme_280_1");
+  // bme680_setup_and_init(&bme_0x77, "bme_0x77");
 }
 
 void loop()
@@ -99,18 +104,48 @@ void loop()
   // canReceiver();
   client.loop(); 
   // checks for new incoming messages from subscribed topics, excucutes callback funcion}
+    // if (!Serial.available())
+    //     return;
+  if (Serial.available())
+  {
+      // Serial.read
+      char buf[30];
+      Serial.readBytes(buf, 30);
+      send_can_frame();
+  }
   if (check_interval() == true)
   {
     // activate_sensor();
-    read_co2_sensor_MHZ19C();
-    read_bme680_publish(&bme_0x77, std::string("bme_0x77"));
-    read_bme280_publish(&bme_280_1, std::string("bme_280_1"));
+    // read_co2_sensor_MHZ19C();
+    // read_bme680_publish(&bme_0x77, std::string("bme_0x77"));
+    // read_bme280_publish(&bme_280_1, std::string("bme_280_1"));
 
     // publish_int(moisture_topic, sensor_values[MOISTURE_I]);
     // publish_int(temp_topic, sensor_values[TEMP_SENSOR_I]);
     // publish_int(CO2_topic, sensor_values[CO2_SENSOR_I]);
     time_interval = millis() + 200UL;
     // Serial.printf("time: %ld\t time_interval %ld:\n", millis(), time_interval);
+  }
+
+  twai_message_t receive_message;
+  int ret;
+
+  ret = twai_receive(&receive_message, pdMS_TO_TICKS(1000));
+
+  if (ret != ESP_OK)
+      return;
+  print_twai(ret, TRANSMIT_RECEIVE_START_STOP);
+
+  if (receive_message.extd) {
+      Serial.printf("Message is in Extended Format\n");
+  } else {
+      Serial.printf("Message is in Standard Format\n");
+  }
+  Serial.printf("ID is %d\n", receive_message.identifier);
+  if (!(receive_message.rtr)) {
+      for (int i = 0; i < receive_message.data_length_code; i++) {
+          Serial.printf("Data byte %d = %d\n", i, receive_message.data[i]);
+      }
   }
 }
 

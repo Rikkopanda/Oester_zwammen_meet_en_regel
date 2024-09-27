@@ -9,5 +9,7 @@ typedef enum e_code_type
 } t_code_type;
 
 void print_twai(int code, t_code_type type);
+void send_can_frame();
+void configure_twai_can();
 
 #endif
