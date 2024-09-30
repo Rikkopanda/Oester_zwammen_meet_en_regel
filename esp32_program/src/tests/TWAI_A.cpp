@@ -11,10 +11,11 @@
 const int MySerialRX = 18;
 const int MySerialTX = 19;
 
+#define CAN_RX_GPIO 18
+#define CAN_TX_GPIO 19
 
-void setup()
+void configure_twai_can()
 {
-    Serial.begin(115200);  // Start the serial communication
     twai_general_config_t general_config = TWAI_GENERAL_CONFIG_DEFAULT(GPIO_NUM_19, GPIO_NUM_18, TWAI_MODE_NORMAL);
     twai_timing_config_t timing_config = TWAI_TIMING_CONFIG_100KBITS();
     twai_filter_config_t filter_config = TWAI_FILTER_CONFIG_ACCEPT_ALL();
@@ -41,15 +42,19 @@ void setup()
     } else {
         printf("Failed to reconfigure alerts");
     }
+}
 
-
+void setup()
+{
+    Serial.begin(115200);  // Start the serial communication
+    configure_twai_can();
 }
 int err;
 uint8_t y = 0;
 twai_status_info_t info;
 int ret;
 
-void loop()
+void send_can_frame()
 {
     twai_clear_transmit_queue();
     // Configure message to transmit
@@ -84,7 +89,6 @@ void loop()
             return;
         }
     }
-
     Serial.printf("Transmit: ......\n");
     for (int x = 0; x < 4; x++)
     {
@@ -92,24 +96,38 @@ void loop()
         y++;
     }
     //Queue message for transmission
-      
     ret = twai_transmit(&message, pdMS_TO_TICKS(1000));
-
     print_twai(ret, TRANSMIT_RECEIVE_START_STOP);
+}
+
+
+void loop()
+{
+    y = 0;
+    // if (!Serial.available())
+    //     return;
+    if (Serial.available())
+    {
+        // Serial.read
+        char buf[30];
+        Serial.readBytes(buf, 30);
+
+        send_can_frame();
+    }
     // if (ret != ESP_OK)
     //     return;
 
     //Process received message
-    Serial.printf("Receiving: ......\n");
+    // Serial.printf("Receiving: ......\n");
 
     //Wait for message to be received
     twai_message_t receive_message;
 
     ret = twai_receive(&receive_message, pdMS_TO_TICKS(1000));
 
-    print_twai(ret, TRANSMIT_RECEIVE_START_STOP);
     if (ret != ESP_OK)
         return;
+    print_twai(ret, TRANSMIT_RECEIVE_START_STOP);
 
     if (receive_message.extd) {
         Serial.printf("Message is in Extended Format\n");
