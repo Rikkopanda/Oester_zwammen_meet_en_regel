@@ -1,8 +1,8 @@
-FROM mysql:5.7-debian
+FROM mysql:8
 
-ENV DEBIAN_FRONTEND=noninteractive
+# ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt update --allow-insecure-repositories -y
+# RUN apt update --allow-insecure-repositories -y
 
-RUN apt upgrade -y
+# RUN apt upgrade -y
 
