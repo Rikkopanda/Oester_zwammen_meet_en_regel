@@ -5,13 +5,22 @@
 #include <stddef.h>
 #include <string>
 #include <cstddef>
-#include "driver/twai.h"
-#include "driver/gpio.h"
-#include "TWAI_custom.hpp"
 
 //subscribe topics
+extern const char    *pump_topic;
+extern const char    *nevelaar_topic;
+extern const char    *lucht_aanvoer_topic;
+//to publish topics
+extern const char    *CO2_topic;
 // extern const char    *temp_topic;
 // extern const char    *moisture_topic;
+extern const char    moisture_topic[2][22];
+extern const char    temp_topic[2][22];
+
+extern const char    *status_esp32_A;
+extern const char    *mqtt_username;
+extern const char    *mqtt_password;
+extern const int     mqtt_port;
 
 extern uint32_t		 time_interval;
 extern int   		 potvalue;
@@ -19,10 +28,11 @@ extern char  		 potvalue_str[16];
 extern int   		 button_state;
 extern int   		 last_button_state;
 
+
 typedef struct s_callback_func_entry
 {
-	uint8_t can_frame_id;
-	void (*callback_func_ptr)(twai_message_t &message);
+	int can_frame_id;
+	void (*callback_func_ptr)(std::string &data);
 } t_callback_func_entry;
 
 extern const t_callback_func_entry callback_table[3];
@@ -69,10 +79,18 @@ enum e_sensor_array_indexes
 // #define       SSID_MOBIEL "V30_9620"
 // #define       PASSWORD_MOBIEL "schildpad"
 
-void callback(twai_message_t &message);
-void airco_callback_action(twai_message_t &message);
-void nevelaar_callback_action(twai_message_t &message);
-void lucht_aanvoer_callback_action(twai_message_t &message);
+#define       SSID_MOBIEL "TP-LINK_6CE1"
+#define       PASSWORD_MOBIEL "06904135"
+
+void 	  connect_broker();
+void 	  connect_wifi();
+std::string	get_wifi_status(int status);
+
+
+void callback(char *topic, uint8_t *payload, unsigned int length);
+void pump_callback_action(std::string &data);
+void nevelaar_callback_action(std::string &data);
+void lucht_aanvoer_callback_action(std::string &data);
 
 int check_overflow();
 int check_interval();
@@ -83,10 +101,9 @@ void publish_int(const char *topic, int val);
 // Define the number of bytes in a data packet
 #define DATA_PACKET_SIZE 16
 #define CO2_BUFFER_SIZE 60
-
 class HardwareSerial;
-void  read_co2_sensor_CH8();
-int   read_co2_sensor_MHZ19C();
+void read_co2_sensor_CH8();
+void read_co2_sensor_MHZ19C();
 extern HardwareSerial sensorSerial; // RX, TX
 
 

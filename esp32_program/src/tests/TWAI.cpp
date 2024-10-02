@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   TWAI.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rikverhoeven <rikverhoeven@student.42.f    +#+  +:+       +#+        */
+/*   By: pi <pi@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 17:02:28 by rikverhoeve       #+#    #+#             */
-/*   Updated: 2024/09/27 18:55:20 by rikverhoeve      ###   ########.fr       */
+/*   Updated: 2024/10/02 09:58:14 by pi               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void print_twai(int code, t_code_type type)
 void configure_twai_can()
 {
     twai_general_config_t general_config = TWAI_GENERAL_CONFIG_DEFAULT(GPIO_NUM_19, GPIO_NUM_18, TWAI_MODE_NORMAL);
-    twai_timing_config_t timing_config = TWAI_TIMING_CONFIG_100KBITS();
+    twai_timing_config_t timing_config = TWAI_TIMING_CONFIG_25KBITS();
     twai_filter_config_t filter_config = TWAI_FILTER_CONFIG_ACCEPT_ALL();
     
     //Install TWAI driver
@@ -117,16 +117,20 @@ int err;
 twai_status_info_t info;
 int ret;
 
-void send_can_frame()
+void send_can_frame(uint8_t can_frame_id, void *_data)
 {
     twai_clear_transmit_queue();
     // Configure message to transmit
     twai_message_t message = {
         // Message ID and payload
-        .identifier = 0x00AA,
-        .data_length_code = 4,
-        .data = {0,1,2,3}
+        .identifier = can_frame_id,
+        .data_length_code = 8,
+        .data = {0, 1, 2, 3}
     };
+    char _strdata[8];
+    sprintf((char *)_strdata, "%d", *(int *)_data);
+    memcpy(message.data, _strdata, 8);
+
     message.extd = 1;              // Standard vs extended format
     message.rtr = 0;               // Data vs RTR frame
     message.ss = 0;                // Whether the message is single shot (i.e., does not repeat on error)
@@ -136,7 +140,8 @@ void send_can_frame()
     twai_get_status_info(&info);
     // Serial.printf("Status : %d\n", info.state);
     print_twai(info.state, TWAI_STATUS);
-
+    int *testp = (int *)message.data;
+    Serial.printf("data to send: %d str %s\n", *(int *)_data, _strdata);
     //Block indefinitely until an alert occurs
     uint32_t alerts_triggered;
     twai_read_alerts(&alerts_triggered, pdMS_TO_TICKS(100));
