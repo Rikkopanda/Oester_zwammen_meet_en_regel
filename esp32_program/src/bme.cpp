@@ -10,7 +10,7 @@
 #include "Adafruit_BME280.h"
 #include "config.h"
 
-extern Adafruit_BME680 bme_0x77; // I2C
+extern Adafruit_BME680 bme_680; // I2C
 extern Adafruit_BME280 bme_280_1; // I2C
 // extern Adafruit_BME280 bme_280_2; // I2C
 
@@ -119,8 +119,11 @@ void read_bme280_publish(Adafruit_BME280 *bme_sensor, std::string name)
   Serial.print(F("Humidity = "));
   Serial.print(bme_sensor->readHumidity());
   Serial.print(F(" %\n"));
-  publish_int(temp_topic[BME_680], bme_sensor->readTemperature());
-  publish_int(moisture_topic[BME_680], bme_sensor->readHumidity());
+  // send_can_frame(topic_can_ids[], bme_sensor->readTemperature());
+  // send_can_frame();
+
+  // publish_int(temp_topic[BME_680], bme_sensor->readTemperature());
+  // publish_int(moisture_topic[BME_680], bme_sensor->readHumidity());
 }
 
 void read_bme680_publish(Adafruit_BME680 *bme_sensor, std::string name)
@@ -155,7 +158,7 @@ void read_bme680_publish(Adafruit_BME680 *bme_sensor, std::string name)
   Serial.print(F("Temperature = "));
   Serial.print(bme_sensor->temperature);
   Serial.print(F(" *C\n"));
-  publish_int(temp_topic[BME_280], bme_sensor->temperature);
+  // publish_int(temp_topic[BME_280], bme_sensor->temperature);
 
   // Serial.print(F("Pressure = "));
   // Serial.print(bme_sensor->pressure / 100.0);
@@ -164,7 +167,7 @@ void read_bme680_publish(Adafruit_BME680 *bme_sensor, std::string name)
   Serial.print(F("Humidity = "));
   Serial.print(bme_sensor->humidity);
   Serial.print(F(" %\n"));
-  publish_int(moisture_topic[BME_280], bme_sensor->humidity);
+  // publish_int(moisture_topic[BME_280], bme_sensor->humidity);
 
   // Serial.print(F("Gas = "));
   // Serial.print(bme_sensor->gas_resistance / 1000.0);

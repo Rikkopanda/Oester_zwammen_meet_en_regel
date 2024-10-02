@@ -1,6 +1,6 @@
 
 #include <Arduino.h>
-#include "MHZ19_uart.h"
+// #include "MHZ19_uart.h"
 #include <SoftwareSerial.h>
 #include <cstdint>
 #include "config.h"
@@ -26,7 +26,7 @@ const uint8_t sendCommandPacket[9] = {0xff, 0x01, 0x86, 0x00, 0x00, 0x00, 0x00, 
  * CO2 concentration = (HIGH * 256) + LOW
  * HIGH = byte2, LOW is byte3
  */
-void read_co2_sensor_MHZ19C()
+int read_co2_sensor_MHZ19C()
 {
 	for (int i = 0; i <= 8; i++)
 		sensorSerial.write(sendCommandPacket[i]);
@@ -45,17 +45,18 @@ void read_co2_sensor_MHZ19C()
 		else
 		{
 			Serial.printf("\nchecksum is not ok\n");
-			return ;
+			return -1;
 		}
 		// if ((dataPacket[0] == 0x42 && dataPacket[1] == 0x4D))
 		// {
 		Co2Value = ((int)dataPacket[2] * 256) + (int)dataPacket[3];
-		Serial.printf("CO2 (ppm): %d\n", Co2Value);
-			publish_int(CO2_topic, Co2Value);
+		// Serial.printf("CO2 (ppm): %d\n", Co2Value);
+		// 	publish_int(CO2_topic, Co2Value);
 
 		// }
 		// else
 		// 	Serial.printf("Invalid data packet header!\n");
-
+		return Co2Value;
 	}
+	return -1;
 }

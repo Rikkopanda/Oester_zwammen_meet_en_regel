@@ -2,13 +2,41 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
 #include "config.h"
+#include <CAN.h>
 #include <SPI.h>
 #include <Adafruit_Sensor.h>
 #include "Adafruit_BME680.h"
 #include "Adafruit_BME280.h"
+#include <CAN.h>
 #include "driver/twai.h"
 #include "driver/gpio.h"
 #include "TWAI_custom.hpp"
+
+
+//wifi
+WiFiClient    espClient;
+const char*   ssid = SSID_MOBIEL;
+const char*   password = PASSWORD_MOBIEL;
+
+//mqtt
+PubSubClient  client(espClient); // creates a pub sub client 
+const char    *mqtt_broker = "test.mosquitto.org";
+
+const char    moisture_topic[2][22] = {"moisture_meter_680_1", "moisture_meter_280_1"};
+
+const char    *CO2_topic = "CO2_meter";
+const char    temp_topic[2][22] = {"temp_meter_680_1", "temp_meter_280_1"};
+
+
+//subscribe topics
+const char    *pump_topic = "pump";
+const char    *nevelaar_topic = "nevellaar";
+const char    *lucht_aanvoer_topic = "lucht_aanvoer";
+
+const char    *status_esp32_A = "status_esp32_A";
+const char    *mqtt_username = NULL;
+const char    *mqtt_password = NULL;
+const int     mqtt_port = 1883;
 
 uint32_t		time_interval;
 int   			sensor_values[3];
@@ -16,21 +44,23 @@ char  			sensor_value_str[16];
 int   			button_state;
 int   			last_button_state;
 
+
 //CAN communication
-const uint8_t topic_can_ids[3] = {144, 145, 146};
+const int topic_can_ids[3] = {144, 145, 146};
+
 
 //commands
-const uint8_t topic_can_command_ids[3] = {147, 148, 149};
+const int topic_can_command_ids[3] = {147, 148, 149};
 
-enum e_commands
+typedef enum e_commands
 {
   NEVELAAR,
   LUCHTAANVOER,
   AIRCO
-};
+}
 
-Adafruit_BME680 bme_680; // I2C
-// Adafruit_BME280 bme_280_1;
+Adafruit_BME680 bme_0x77; // I2C
+Adafruit_BME280 bme_280_1;
 // Adafruit_BME280 bme_280_2; // I2C
 
 // Define the CO2 sensor serial interface
@@ -44,8 +74,8 @@ int Co2Value;
 
 const t_callback_func_entry callback_table[3] = {
 			{topic_can_command_ids[NEVELAAR], nevelaar_callback_action},
-			{topic_can_command_ids[LUCHTAANVOER], lucht_aanvoer_callback_action},
-			{topic_can_command_ids[AIRCO], airco_callback_action}
+			{topic_can_command_ids[LUCHTAANVOER], lucht_aanvoer_callback_action}
+			{topic_can_command_ids[AIRCO], airco_callback_action},
 		};
 
 void setup()
@@ -54,37 +84,66 @@ void setup()
   
   Serial.begin(115200);
 
+  // Set the pins
+  // CAN.setPins (RX_GPIO_NUM, TX_GPIO_NUM);
+
+  // // start the CAN bus at 500 kbps
+  // if (!CAN.begin(50E3)) {
+  //   Serial.printf ("Starting CAN failed!");
+  //   while (1);
+  // }
+  // else {
+  //   Serial.printf ("CAN Initialized");
+  // }
+  // bme280_setup_and_init(&bme_280_2, "bme_280_2");
   pinMode(PUMP_PIN, OUTPUT);
   pinMode(NEVELAAR_PIN, OUTPUT);
   pinMode(LUCHT_AANVOER_PIN, OUTPUT);
 
   configure_twai_can();
-  time_interval = 5000UL;
-  bme680_setup_and_init(&bme_680, "bme_0x77");
+  // connect_wifi();
+  // connect_broker();
+  
+  // client.publish(status_esp32_A, "Hi, I'm ESP32 A ^^");
+  // client.subscribe(pump_topic);
+  // client.subscribe(nevelaar_topic);
+  // client.subscribe(lucht_aanvoer_topic);
 
+  time_interval = 5000UL;
+  // bme280_setup_and_init(&bme_280_1, "bme_280_1");
+  // bme680_setup_and_init(&bme_0x77, "bme_0x77");
 }
 
 void loop()
 {
-  // client.loop(); 
+  // canSender();
+  // canReceiver();
+  client.loop(); 
+  // checks for new incoming messages from subscribed topics, excucutes callback funcion}
+    // if (!Serial.available())
+    //     return;
   if (Serial.available())
   {
       // Serial.read
       char buf[30];
       Serial.readBytes(buf, 30);
-      // send_can_frame();
+      send_can_frame();
   }
   if (check_interval() == true)
   {
-    Serial.println("hello check interval starting to print");
     activate_sensor();
     int Co2_value = read_co2_sensor_MHZ19C();
-    int humidity = bme_680.readHumidity();
-    int temp = bme_680.readTemperature();
-    send_can_frame(topic_can_ids[CO2_SENSOR_I], &Co2_value);
-    send_can_frame(topic_can_ids[MOISTURE_I], &humidity);
-    send_can_frame(topic_can_ids[TEMP_SENSOR_I], &temp);
+    // read_bme680_publish(&bme_0x77, std::string("bme_0x77"));
+    // read_bme280_publish(&bme_280_1, std::string("bme_280_1"));
+    send_can_frame(topic_can_ids[CO2_SENSOR_I], Co2_value);
+    send_can_frame(topic_can_ids[MOISTURE_I], bme_sensor->readHumidity());
+    send_can_frame(topic_can_ids[TEMP_SENSOR_I], bme_sensor->readTemperature());
+    // publish_int(moisture_topic, sensor_values[MOISTURE_I]);
+    // publish_int(temp_topic, sensor_values[TEMP_SENSOR_I]);
+    // publish_int(CO2_topic, sensor_values[CO2_SENSOR_I]);
     time_interval = millis() + 200UL;
+
+    // Serial.printf("time: %ld\t time_interval %ld:\n", millis(), time_interval);
   }
 
   twai_message_t receive_message;
@@ -107,7 +166,6 @@ void loop()
           Serial.printf("Data byte %d = %d\n", i, receive_message.data[i]);
       }
   }
-  callback(receive_message);
 }
 
 // void canSender() {
@@ -178,7 +236,7 @@ int check_interval()
 */
 int activate_sensor()
 {
-  // digitalWrite(TURN_ON_MOISTURE_SENSOR_PIN, HIGH);
+  digitalWrite(TURN_ON_MOISTURE_SENSOR_PIN, HIGH);
 
   // Serial.printf("TURN_ON_MOISTURE_SENSOR_PIN\n");
 
@@ -191,7 +249,7 @@ int activate_sensor()
   // Serial.printf("value CO2 %d\n", sensor_values[CO2_SENSOR_I]);
   // Serial.printf("value moisture %d\n", sensor_values[MOISTURE_I]);
 
-  // digitalWrite(TURN_ON_MOISTURE_SENSOR_PIN, LOW);
+  digitalWrite(TURN_ON_MOISTURE_SENSOR_PIN, LOW);
   return (0);
 }
 
