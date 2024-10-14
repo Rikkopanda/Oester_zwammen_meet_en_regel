@@ -1,0 +1,291 @@
+[
+    {
+        "id": "c96a6450.746888",
+        "type": "inject",
+        "z": "4392d5db.3b662c",
+        "name": "",
+        "topic": "",
+        "payload": "bla bla",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 90,
+        "y": 60,
+        "wires": [
+            [
+                "d643a206.ef485"
+            ]
+        ]
+    },
+    {
+        "id": "8d6c59c8.a0e228",
+        "type": "debug",
+        "z": "4392d5db.3b662c",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "true",
+        "x": 590,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "58687119.21835",
+        "type": "amqp in",
+        "z": "4392d5db.3b662c",
+        "name": "",
+        "topic": "",
+        "iotype": "1",
+        "ioname": "ingress_timestamped",
+        "server": "22c8fc1b.732854",
+        "x": 360,
+        "y": 460,
+        "wires": [
+            [
+                "8d6c59c8.a0e228",
+                "1fb75e0f.09efa2",
+                "a9e5fe7f.6b618"
+            ]
+        ]
+    },
+    {
+        "id": "d643a206.ef485",
+        "type": "amqp out",
+        "z": "4392d5db.3b662c",
+        "name": "",
+        "routingkey": "",
+        "iotype": "1",
+        "ioname": "ingress",
+        "server": "22c8fc1b.732854",
+        "x": 220,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "66a83517.6b462c",
+        "type": "amqp in",
+        "z": "4392d5db.3b662c",
+        "name": "",
+        "topic": "",
+        "iotype": "1",
+        "ioname": "ingress",
+        "server": "22c8fc1b.732854",
+        "x": 90,
+        "y": 220,
+        "wires": [
+            [
+                "e5429fd6.1f08e"
+            ]
+        ]
+    },
+    {
+        "id": "7874c67.2902b38",
+        "type": "OTS_Stamp",
+        "z": "4392d5db.3b662c",
+        "name": "OTS_Stamp",
+        "x": 430,
+        "y": 220,
+        "wires": [
+            [
+                "7468042d.a8bcdc",
+                "2421d40d.cc059c"
+            ]
+        ]
+    },
+    {
+        "id": "e5429fd6.1f08e",
+        "type": "function",
+        "z": "4392d5db.3b662c",
+        "name": "Convert",
+        "func": "msg.fileArray = new Buffer(msg.payload);\nmsg.payload = null;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 240,
+        "y": 220,
+        "wires": [
+            [
+                "7874c67.2902b38"
+            ]
+        ]
+    },
+    {
+        "id": "7468042d.a8bcdc",
+        "type": "OTS_Info",
+        "z": "4392d5db.3b662c",
+        "name": "OTS_Info",
+        "x": 640,
+        "y": 260,
+        "wires": [
+            [
+                "54b36dc9.c367a4"
+            ]
+        ]
+    },
+    {
+        "id": "54b36dc9.c367a4",
+        "type": "debug",
+        "z": "4392d5db.3b662c",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 850,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "2421d40d.cc059c",
+        "type": "function",
+        "z": "4392d5db.3b662c",
+        "name": "Convert",
+        "func": "msg.payload = {}\nmsg.payload.data = msg.fileArray;\nmsg.payload.ots = msg.otsArray;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 640,
+        "y": 180,
+        "wires": [
+            [
+                "d0f7a135.d2704"
+            ]
+        ]
+    },
+    {
+        "id": "d0f7a135.d2704",
+        "type": "amqp out",
+        "z": "4392d5db.3b662c",
+        "name": "",
+        "routingkey": "",
+        "iotype": "1",
+        "ioname": "ingress_timestamped",
+        "server": "22c8fc1b.732854",
+        "x": 880,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "1fb75e0f.09efa2",
+        "type": "change",
+        "z": "4392d5db.3b662c",
+        "name": "Get data",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.data",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 460,
+        "wires": [
+            [
+                "48d33270.bb3f0c"
+            ]
+        ]
+    },
+    {
+        "id": "a9e5fe7f.6b618",
+        "type": "change",
+        "z": "4392d5db.3b662c",
+        "name": "Get OTS",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.ots",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 500,
+        "wires": [
+            [
+                "9b07c36e.453f1"
+            ]
+        ]
+    },
+    {
+        "id": "48d33270.bb3f0c",
+        "type": "function",
+        "z": "4392d5db.3b662c",
+        "name": "Set filename",
+        "func": "msg.filename = \"/opt/opentimestamp/dump-amqp/\" + msg._msgid + \".data\"\nmsg.payload = new Buffer(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 770,
+        "y": 460,
+        "wires": [
+            [
+                "b4cdc2a6.e6399"
+            ]
+        ]
+    },
+    {
+        "id": "9b07c36e.453f1",
+        "type": "function",
+        "z": "4392d5db.3b662c",
+        "name": "Set filename",
+        "func": "msg.filename = \"/opt/opentimestamp/dump-amqp/\" + msg._msgid + \".ots\"\nmsg.payload = new Buffer(msg.payload);\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 770,
+        "y": 500,
+        "wires": [
+            [
+                "c56635e0.1f9568"
+            ]
+        ]
+    },
+    {
+        "id": "b4cdc2a6.e6399",
+        "type": "file",
+        "z": "4392d5db.3b662c",
+        "name": "",
+        "filename": "",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "x": 930,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "c56635e0.1f9568",
+        "type": "file",
+        "z": "4392d5db.3b662c",
+        "name": "",
+        "filename": "",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "x": 930,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "22c8fc1b.732854",
+        "type": "amqp-server",
+        "z": "",
+        "host": "mqtt-broker",
+        "port": "5672",
+        "vhost": "",
+        "keepalive": "30",
+        "usetls": false,
+        "verifyservercert": true,
+        "usetopology": false,
+        "topology": "{\n\t\"exchanges\": [\n\t\t{\"name\": \"exchange1\", \"type\": \"direct\", \"options\": {\"durable\": false}},\n\t\t{\"name\": \"exchange2\"}\n\t],\n\t\"queues\": [\n\t\t{\"name\": \"queue1\", \"options\": {\"messageTtl\": 60000}},\n\t\t{\"name\": \"queue2\"}\n\t],\n\t\"bindings\": [\n\t\t{\"source\": \"exchange1\", \"queue\": \"queue1\", \"pattern\": \"debug\", \"args\": {}},\n\t\t{\"source\": \"exchange1\", \"exchange\": \"exchange2\", \"pattern\": \"error\"},\n\t\t{\"source\": \"exchange2\", \"queue\": \"queue2\"}\n\t]\n}"
+    }
+]

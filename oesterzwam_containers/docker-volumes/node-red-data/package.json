@@ -1,0 +1,34 @@
+{
+  "name": "ESP32_i_like_hamburgers",
+  "description": "initially created for you by Node-RED 3.1.5",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "body-parser": "1.19.0",
+    "express": "^4.21.0",
+    "node-red-contrib-boolean-logic": "^0.0.3",
+    "node-red-contrib-buffer-parser": "^3.2.2",
+    "node-red-contrib-cron-plus": "~2.1.0",
+    "node-red-contrib-open": "~1.0.0",
+    "node-red-contrib-opentimestamps": "0.0.7",
+    "node-red-contrib-play-audio": "^2.5.0",
+    "node-red-contrib-socketcan": "1.2.10",
+    "node-red-contrib-ui-joystick": "~1.0.1",
+    "node-red-contrib-ui-time-scheduler": "~1.17.2",
+    "node-red-dashboard": "~3.6.2",
+    "node-red-node-mysql": "2.0.0",
+    "node-red-node-pi-gpio": "^2.0.6",
+    "node-red-node-ping": "^0.3.3",
+    "node-red-node-random": "^0.4.1",
+    "node-red-node-serialport": "^1.0.3",
+    "node-red-node-smooth": "^0.1.2",
+    "red-contrib-socketcan": "1.0.0",
+    "thethingbox-node-timestamp": "2.0.0"
+  },
+  "node-red": {
+    "settings": {
+      "flowFile": "flows_esp32.json",
+      "credentialsFile": "flows_esp32_cred.json"
+    }
+  }
+}

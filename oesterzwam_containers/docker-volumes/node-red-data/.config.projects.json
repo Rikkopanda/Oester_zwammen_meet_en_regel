@@ -1,0 +1,8 @@
+{
+    "projects": {
+        "OesterzwammenKweek": {
+            "credentialSecret": false
+        }
+    },
+    "activeProject": "OesterzwammenKweek"
+}

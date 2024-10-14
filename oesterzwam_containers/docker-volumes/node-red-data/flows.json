@@ -1,0 +1,1220 @@
+[
+    {
+        "id": "b63fcb1813d36138",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "fd773dbbcabdd020",
+        "type": "ui_group",
+        "name": "Our Dashboard",
+        "tab": "c36cb0c02a3b749c",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "c36cb0c02a3b749c",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "0d3b41ea749a7584",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "520f84fbb7233879",
+        "type": "mqtt-broker",
+        "name": "test.mosquitto.org",
+        "broker": "test.mosquitto.org",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "e6cc434addba9671",
+        "type": "global-config",
+        "name": "global-config",
+        "env": [
+            {
+                "name": "last_message",
+                "value": "",
+                "type": "str"
+            }
+        ]
+    },
+    {
+        "id": "bfe48a3e.1b0f4",
+        "type": "ui_group",
+        "name": "Scheduler",
+        "tab": "c36cb0c02a3b749c",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "bfafa52acf365589",
+        "type": "ui_gauge",
+        "z": "b63fcb1813d36138",
+        "d": true,
+        "name": "",
+        "group": "fd773dbbcabdd020",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Pot01 Gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "4100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 530,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "9a2b56362a30a608",
+        "type": "ui_chart",
+        "z": "b63fcb1813d36138",
+        "name": "",
+        "group": "fd773dbbcabdd020",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "label": "Vochtigheid",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": "1",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "86400",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 530,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dedf24b77a39d810",
+        "type": "ui_button",
+        "z": "b63fcb1813d36138",
+        "d": true,
+        "name": "",
+        "group": "fd773dbbcabdd020",
+        "order": 11,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Pot01 Logs",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 530,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2a7701dfbec8480f",
+        "type": "mqtt out",
+        "z": "b63fcb1813d36138",
+        "name": "",
+        "topic": "pump",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "520f84fbb7233879",
+        "x": 1230,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "a86c61ba2a0afd05",
+        "type": "mqtt in",
+        "z": "b63fcb1813d36138",
+        "name": "",
+        "topic": "moisture_meter_280_1",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "520f84fbb7233879",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 660,
+        "wires": [
+            [
+                "9a2b56362a30a608",
+                "3d9b79b21c477426",
+                "4b5b7335b14e6091",
+                "7a79c204bb225a22"
+            ]
+        ]
+    },
+    {
+        "id": "cef6666f206cc757",
+        "type": "function",
+        "z": "b63fcb1813d36138",
+        "name": "check moisture level",
+        "func": "let value = msg.payload\n\nif (value > 3000)\n{\n    msg.payload = \"true\"\n}\nelse\n{\n    msg.payload = \"false\"\n}\n\nif (env.last_message == msg.payload)\n    return null;\nelse\n{\n    env.last_message = msg.payload\n    return msg;\n}",
+        "outputs": 1,
+        "timeout": "2000",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 760,
+        "wires": [
+            [
+                "2a7701dfbec8480f",
+                "b4290e082e61979d"
+            ]
+        ]
+    },
+    {
+        "id": "3d9b79b21c477426",
+        "type": "delay",
+        "z": "b63fcb1813d36138",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 450,
+        "y": 760,
+        "wires": [
+            [
+                "cef6666f206cc757"
+            ]
+        ]
+    },
+    {
+        "id": "95a11e03fcdfbcdc",
+        "type": "ui_button",
+        "z": "b63fcb1813d36138",
+        "name": "",
+        "group": "fd773dbbcabdd020",
+        "order": 14,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Pump on",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "str",
+        "topic": "pump",
+        "topicType": "str",
+        "x": 780,
+        "y": 820,
+        "wires": [
+            [
+                "2a7701dfbec8480f",
+                "936fc4eb32fc5cc4"
+            ]
+        ]
+    },
+    {
+        "id": "0a20dca28ec3e2b4",
+        "type": "ui_button",
+        "z": "b63fcb1813d36138",
+        "name": "",
+        "group": "fd773dbbcabdd020",
+        "order": 15,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Pump off",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "false",
+        "payloadType": "str",
+        "topic": "pump",
+        "topicType": "str",
+        "x": 780,
+        "y": 860,
+        "wires": [
+            [
+                "2a7701dfbec8480f",
+                "936fc4eb32fc5cc4"
+            ]
+        ]
+    },
+    {
+        "id": "936fc4eb32fc5cc4",
+        "type": "debug",
+        "z": "b63fcb1813d36138",
+        "name": "ui_mist_debug",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "b4290e082e61979d",
+        "type": "debug",
+        "z": "b63fcb1813d36138",
+        "name": "pump_msg_1",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "5f0205de7d9a31ba",
+        "type": "mqtt in",
+        "z": "b63fcb1813d36138",
+        "name": "",
+        "topic": "status_esp32_A",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "520f84fbb7233879",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 380,
+        "wires": [
+            [
+                "cf9b1c8c7fbf83a2",
+                "06bc3632d7cf4dc4"
+            ]
+        ]
+    },
+    {
+        "id": "cf9b1c8c7fbf83a2",
+        "type": "debug",
+        "z": "b63fcb1813d36138",
+        "name": "debug_status_A",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 550,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "06bc3632d7cf4dc4",
+        "type": "ui_text",
+        "z": "b63fcb1813d36138",
+        "group": "fd773dbbcabdd020",
+        "order": 21,
+        "width": 0,
+        "height": 0,
+        "name": "status_esp32_A_text",
+        "label": "",
+        "format": "status Esp32 A: {{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 920,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "98ce49eaa3095bc7",
+        "type": "mqtt in",
+        "z": "b63fcb1813d36138",
+        "name": "",
+        "topic": "temp_meter_280_1",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "520f84fbb7233879",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 960,
+        "wires": [
+            [
+                "051f1d6cb4ec338c",
+                "d3776e463abbcc39",
+                "7335252dd2c4ba4f"
+            ]
+        ]
+    },
+    {
+        "id": "f0bc1e9e7d3374c9",
+        "type": "ui_chart",
+        "z": "b63fcb1813d36138",
+        "name": "",
+        "group": "fd773dbbcabdd020",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "label": "CO2 gehalte",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "4100",
+        "removeOlder": "1",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "86400",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#c01c28",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 530,
+        "y": 1040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fef3aa19703b18e0",
+        "type": "mqtt in",
+        "z": "b63fcb1813d36138",
+        "name": "",
+        "topic": "CO2_meter",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "520f84fbb7233879",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 1040,
+        "wires": [
+            [
+                "f0bc1e9e7d3374c9",
+                "5e95967e9752d4fb",
+                "d951a9babd1973b3"
+            ]
+        ]
+    },
+    {
+        "id": "4b5b7335b14e6091",
+        "type": "debug",
+        "z": "b63fcb1813d36138",
+        "name": "moist_280_1_msg_1",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "051f1d6cb4ec338c",
+        "type": "debug",
+        "z": "b63fcb1813d36138",
+        "name": "temp_280_msg_1",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "5e95967e9752d4fb",
+        "type": "debug",
+        "z": "b63fcb1813d36138",
+        "name": "CO2t_msg_1",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "31d9cf6b8e390182",
+        "type": "ui_button",
+        "z": "b63fcb1813d36138",
+        "name": "",
+        "group": "fd773dbbcabdd020",
+        "order": 16,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Mistmaker on",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "str",
+        "topic": "nevellaar",
+        "topicType": "str",
+        "x": 800,
+        "y": 940,
+        "wires": [
+            [
+                "7a038c11fbe6a141",
+                "c1a6f10bcf7605bb"
+            ]
+        ]
+    },
+    {
+        "id": "75376cccb533782d",
+        "type": "ui_button",
+        "z": "b63fcb1813d36138",
+        "name": "",
+        "group": "fd773dbbcabdd020",
+        "order": 17,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Mistmaker off",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "false",
+        "payloadType": "str",
+        "topic": "nevellaar",
+        "topicType": "str",
+        "x": 800,
+        "y": 980,
+        "wires": [
+            [
+                "7a038c11fbe6a141",
+                "c1a6f10bcf7605bb"
+            ]
+        ]
+    },
+    {
+        "id": "7a038c11fbe6a141",
+        "type": "debug",
+        "z": "b63fcb1813d36138",
+        "name": "ui_mist_debug",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1070,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "c1a6f10bcf7605bb",
+        "type": "mqtt out",
+        "z": "b63fcb1813d36138",
+        "name": "",
+        "topic": "nevellaar",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "520f84fbb7233879",
+        "x": 1240,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "db6a1bc99f4bbdc3",
+        "type": "ui_button",
+        "z": "b63fcb1813d36138",
+        "name": "",
+        "group": "fd773dbbcabdd020",
+        "order": 18,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Lucht_aanvoer on",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "str",
+        "topic": "lucht_aanvoer",
+        "topicType": "str",
+        "x": 810,
+        "y": 1100,
+        "wires": [
+            [
+                "6e8294a9c93bc0c2",
+                "559bcd4a22fd3ab8"
+            ]
+        ]
+    },
+    {
+        "id": "e37569089f35e4d5",
+        "type": "ui_button",
+        "z": "b63fcb1813d36138",
+        "name": "",
+        "group": "fd773dbbcabdd020",
+        "order": 19,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Lucht_aanvoer off",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "false",
+        "payloadType": "str",
+        "topic": "lucht_aanvoer",
+        "topicType": "str",
+        "x": 810,
+        "y": 1140,
+        "wires": [
+            [
+                "6e8294a9c93bc0c2",
+                "559bcd4a22fd3ab8"
+            ]
+        ]
+    },
+    {
+        "id": "6e8294a9c93bc0c2",
+        "type": "debug",
+        "z": "b63fcb1813d36138",
+        "name": "ui_lucht_aanvoer_debug",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1100,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "559bcd4a22fd3ab8",
+        "type": "mqtt out",
+        "z": "b63fcb1813d36138",
+        "name": "",
+        "topic": "lucht_aanvoer",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "520f84fbb7233879",
+        "x": 1260,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "28c056dc.6e2fba",
+        "type": "comment",
+        "z": "b63fcb1813d36138",
+        "name": "### This scenario is permanent and requires a file to read an write to ###",
+        "info": "",
+        "x": 360,
+        "y": 1400,
+        "wires": []
+    },
+    {
+        "id": "a9184512.6d0338",
+        "type": "file",
+        "z": "b63fcb1813d36138",
+        "name": "WriteFile",
+        "filename": "/home/rikverhoeven/node_modules/time-schedule0.txt",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 760,
+        "y": 1440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4d5aed99.b82234",
+        "type": "inject",
+        "z": "b63fcb1813d36138",
+        "name": "FireAfterReboot",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 1460,
+        "wires": [
+            [
+                "efd15a17.372ff8"
+            ]
+        ]
+    },
+    {
+        "id": "efd15a17.372ff8",
+        "type": "file in",
+        "z": "b63fcb1813d36138",
+        "name": "ReadFile",
+        "filename": "/home/rikverhoeven/node_modules/time-schedule0.txt",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 380,
+        "y": 1460,
+        "wires": [
+            [
+                "dec834a4.768678"
+            ]
+        ]
+    },
+    {
+        "id": "63338f84.0d9f5",
+        "type": "ui_switch",
+        "z": "b63fcb1813d36138",
+        "name": "",
+        "label": "klimaat_beheersing",
+        "tooltip": "",
+        "group": "bfe48a3e.1b0f4",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": true,
+        "className": "",
+        "x": 790,
+        "y": 1480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dec834a4.768678",
+        "type": "ui_time_scheduler",
+        "z": "b63fcb1813d36138",
+        "group": "bfe48a3e.1b0f4",
+        "name": "",
+        "startDay": "0",
+        "refresh": 60,
+        "devices": [
+            "airco, vernevellaar",
+            "ventilatie"
+        ],
+        "singleOff": false,
+        "onlySendChange": false,
+        "customPayload": false,
+        "eventMode": false,
+        "eventOptions": [],
+        "sendTopic": false,
+        "lat": "",
+        "lon": "",
+        "customContextStore": "",
+        "outputs": 3,
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "x": 550,
+        "y": 1460,
+        "wires": [
+            [
+                "a9184512.6d0338"
+            ],
+            [
+                "63338f84.0d9f5"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "d3776e463abbcc39",
+        "type": "ui_text",
+        "z": "b63fcb1813d36138",
+        "group": "fd773dbbcabdd020",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Temp_280_1",
+        "format": "{{msg.payload}} Degrees Celsius",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 530,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "d951a9babd1973b3",
+        "type": "ui_text",
+        "z": "b63fcb1813d36138",
+        "group": "fd773dbbcabdd020",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "CO2Text",
+        "format": "{{msg.payload}} ppm Co2",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 520,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "7a79c204bb225a22",
+        "type": "ui_text",
+        "z": "b63fcb1813d36138",
+        "group": "fd773dbbcabdd020",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Moisture_280_1",
+        "format": "{{msg.payload}} % vochtgehalte",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 540,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "3d9051fe18746dce",
+        "type": "mqtt in",
+        "z": "b63fcb1813d36138",
+        "name": "",
+        "topic": "temp_meter_680_1",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "520f84fbb7233879",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 900,
+        "wires": [
+            [
+                "c7c2bcb610d8cb54",
+                "7335252dd2c4ba4f",
+                "d84dbf71c8cb4f34"
+            ]
+        ]
+    },
+    {
+        "id": "cc7b9975fd88c4df",
+        "type": "mqtt in",
+        "z": "b63fcb1813d36138",
+        "name": "",
+        "topic": "moisture_meter_680_1",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "520f84fbb7233879",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 700,
+        "wires": [
+            [
+                "9a2b56362a30a608",
+                "e140e101f23c4607",
+                "69e992e7b7876c39"
+            ]
+        ]
+    },
+    {
+        "id": "e140e101f23c4607",
+        "type": "ui_text",
+        "z": "b63fcb1813d36138",
+        "group": "fd773dbbcabdd020",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Moisture_680_1",
+        "format": "{{msg.payload}} % vochtgehalte",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 540,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "c7c2bcb610d8cb54",
+        "type": "ui_text",
+        "z": "b63fcb1813d36138",
+        "group": "fd773dbbcabdd020",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Temp_680_1",
+        "format": "{{msg.payload}} Degrees Celsius",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 530,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "7335252dd2c4ba4f",
+        "type": "ui_chart",
+        "z": "b63fcb1813d36138",
+        "name": "",
+        "group": "fd773dbbcabdd020",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "label": "Temperatuur",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "-10",
+        "ymax": "50",
+        "removeOlder": "1",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "86400",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#c01c28",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 530,
+        "y": 960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "69e992e7b7876c39",
+        "type": "debug",
+        "z": "b63fcb1813d36138",
+        "name": "moist_680_1_msg_1",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "d84dbf71c8cb4f34",
+        "type": "debug",
+        "z": "b63fcb1813d36138",
+        "name": "temp_680_msg_1",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 800,
+        "wires": []
+    }
+]
