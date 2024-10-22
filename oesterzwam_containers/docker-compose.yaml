@@ -16,7 +16,7 @@ services:
       - NET_ADMIN  # Add network administration capabilities (optional but may be required)
       - SYS_RAWIO  # Add raw input/output access
     volumes:
-      - oester-nodered-data:/data  # Named volume for persisting Node-RED data
+      - ./docker-volumes/node-red-data:/data  # Named volume for persisting Node-RED data
     restart: unless-stopped        # Automatically restart the container unless it is explicitly stopped
   db:
     build: my_sql_container/
@@ -24,12 +24,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=schildpad
     volumes:
-      - oester-mysql-data:/var/lib/mysql
+      - ./docker-volumes/mysql-data:/var/lib/mysql
     ports:
       - "3307:3306"
     restart: unless-stopped
-volumes:
-  oester-nodered-data:
-    driver: local
-  oester-mysql-data:
-    driver: local

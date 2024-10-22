@@ -1,0 +1,307 @@
+[
+    {
+        "id": "86aec060.69b3d",
+        "type": "inject",
+        "z": "3c8a5604.39f8ba",
+        "name": "",
+        "topic": "",
+        "payload": "bla bla",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 90,
+        "y": 60,
+        "wires": [
+            [
+                "10ea2927.96f247"
+            ]
+        ]
+    },
+    {
+        "id": "3a768aaa.e483d6",
+        "type": "OTS_Stamp",
+        "z": "3c8a5604.39f8ba",
+        "name": "OTS_Stamp",
+        "x": 430,
+        "y": 260,
+        "wires": [
+            [
+                "2996139.6165bec",
+                "208b34b.419b8cc"
+            ]
+        ]
+    },
+    {
+        "id": "a8e88100.e5485",
+        "type": "function",
+        "z": "3c8a5604.39f8ba",
+        "name": "Convert",
+        "func": "msg.fileArray = new Buffer(msg.payload);\nmsg.payload = null;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 240,
+        "y": 260,
+        "wires": [
+            [
+                "3a768aaa.e483d6"
+            ]
+        ]
+    },
+    {
+        "id": "2996139.6165bec",
+        "type": "OTS_Info",
+        "z": "3c8a5604.39f8ba",
+        "name": "OTS_Info",
+        "x": 640,
+        "y": 300,
+        "wires": [
+            [
+                "5e5825f7.d0b5ec"
+            ]
+        ]
+    },
+    {
+        "id": "5e5825f7.d0b5ec",
+        "type": "debug",
+        "z": "3c8a5604.39f8ba",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 850,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "208b34b.419b8cc",
+        "type": "function",
+        "z": "3c8a5604.39f8ba",
+        "name": "Convert",
+        "func": "msg.payload = {}\nmsg.payload.data = msg.fileArray;\nmsg.payload.ots = msg.otsArray;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 640,
+        "y": 220,
+        "wires": [
+            [
+                "911bbcd8.9ea6"
+            ]
+        ]
+    },
+    {
+        "id": "630c703c.e22b5",
+        "type": "mqtt in",
+        "z": "3c8a5604.39f8ba",
+        "name": "",
+        "topic": "ingress_timestamped",
+        "qos": "2",
+        "broker": "b2e0c3ab.d24db",
+        "x": 260,
+        "y": 480,
+        "wires": [
+            [
+                "8a4a0f7e.c5b8d"
+            ]
+        ]
+    },
+    {
+        "id": "10ea2927.96f247",
+        "type": "mqtt out",
+        "z": "3c8a5604.39f8ba",
+        "name": "",
+        "topic": "ingress",
+        "qos": "",
+        "retain": "",
+        "broker": "b2e0c3ab.d24db",
+        "x": 240,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "f6c25dc9.0707a",
+        "type": "mqtt in",
+        "z": "3c8a5604.39f8ba",
+        "name": "",
+        "topic": "ingress",
+        "qos": "2",
+        "broker": "b2e0c3ab.d24db",
+        "x": 90,
+        "y": 260,
+        "wires": [
+            [
+                "a8e88100.e5485"
+            ]
+        ]
+    },
+    {
+        "id": "911bbcd8.9ea6",
+        "type": "mqtt out",
+        "z": "3c8a5604.39f8ba",
+        "name": "",
+        "topic": "ingress_timestamped",
+        "qos": "",
+        "retain": "",
+        "broker": "b2e0c3ab.d24db",
+        "x": 880,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "1da4a149.b2b18f",
+        "type": "debug",
+        "z": "3c8a5604.39f8ba",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "true",
+        "x": 630,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "912c107d.aa1e7",
+        "type": "change",
+        "z": "3c8a5604.39f8ba",
+        "name": "Get data",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.data",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 480,
+        "wires": [
+            [
+                "c5dc3887.176e88"
+            ]
+        ]
+    },
+    {
+        "id": "1f918b60.31f315",
+        "type": "change",
+        "z": "3c8a5604.39f8ba",
+        "name": "Get OTS",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.ots",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 520,
+        "wires": [
+            [
+                "1a0710d9.4f655f"
+            ]
+        ]
+    },
+    {
+        "id": "c5dc3887.176e88",
+        "type": "function",
+        "z": "3c8a5604.39f8ba",
+        "name": "Set filename",
+        "func": "msg.filename = \"/opt/opentimestamp/dump-mqtt/\" + msg._msgid + \".data\"\nmsg.payload = new Buffer(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 810,
+        "y": 480,
+        "wires": [
+            [
+                "7c6d470.33266b8"
+            ]
+        ]
+    },
+    {
+        "id": "1a0710d9.4f655f",
+        "type": "function",
+        "z": "3c8a5604.39f8ba",
+        "name": "Set filename",
+        "func": "msg.filename = \"/opt/opentimestamp/dump-mqtt/\" + msg._msgid + \".ots\"\nmsg.payload = new Buffer(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 810,
+        "y": 520,
+        "wires": [
+            [
+                "9b51894d.fb96c8"
+            ]
+        ]
+    },
+    {
+        "id": "7c6d470.33266b8",
+        "type": "file",
+        "z": "3c8a5604.39f8ba",
+        "name": "",
+        "filename": "",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "x": 970,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "9b51894d.fb96c8",
+        "type": "file",
+        "z": "3c8a5604.39f8ba",
+        "name": "",
+        "filename": "",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "x": 970,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "8a4a0f7e.c5b8d",
+        "type": "json",
+        "z": "3c8a5604.39f8ba",
+        "name": "",
+        "x": 450,
+        "y": 480,
+        "wires": [
+            [
+                "1da4a149.b2b18f",
+                "912c107d.aa1e7",
+                "1f918b60.31f315"
+            ]
+        ]
+    },
+    {
+        "id": "b2e0c3ab.d24db",
+        "type": "mqtt-broker",
+        "z": "",
+        "broker": "test.mosquitto.org",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    }
+]
