@@ -18,10 +18,14 @@ services:
       - SYS_RAWIO  # Add raw input/output access
     volumes:
       - oester-nodered-data:/data  # Named volume for persisting Node-RED data
+      - /home/rik/.ssh:/tmp/.ssh
+      - /home/rik/.ssh:/root/.ssh
+      - ./scripts:/scripts
     restart: unless-stopped        # Automatically restart the container unless it is explicitly stopped
   db:
     build: my_sql_container/
     container_name: mysql-database-oesterzwam
+
     environment:
       - MYSQL_ROOT_PASSWORD=schildpad
     volumes:
