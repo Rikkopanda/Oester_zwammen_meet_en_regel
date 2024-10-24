@@ -7,3 +7,6 @@
 [submodule "lib/MHZ19C"]
 	path = lib/MHZ19C
 	url = git@github.com:takashi-makinose/MHZ19C.git
+[submodule "oesterzwam_containers/NODE-RED-OESTERZWAM"]
+	path = oesterzwam_containers/NODE-RED-OESTERZWAM
+	url = git@github.com:Rikkopanda/NODE-RED-OESTERZWAM.git
