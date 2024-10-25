@@ -16,6 +16,7 @@ services:
     cap_add:
       - NET_ADMIN  # Add network administration capabilities (optional but may be required)
       - SYS_RAWIO  # Add raw input/output access
+    
     volumes:
       - oester-nodered-data:/data  # Named volume for persisting Node-RED data
       - /home/rik/.ssh:/tmp/.ssh
@@ -25,9 +26,9 @@ services:
   db:
     build: my_sql_container/
     container_name: mysql-database-oesterzwam
-
     environment:
       - MYSQL_ROOT_PASSWORD=schildpad
+      - NODE_RED_USER_DIR=/data
     volumes:
       - oester-mysql-data:/var/lib/mysql
     ports:

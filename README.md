@@ -22,6 +22,25 @@ cd /data/projects
 git clone git@github.com:Rikkopanda/NODE-RED-OESTERZWAM.git 
 
 
+#debug nodered;
+
+
+find / -name "package.json" -not -path "*/node_modules/*" -exec 
+ls -la {} \; 2>/dev/null
+
+enviroment variabelen;
+cat /proc/6/environ | sed 's/:/\n/g'
+
+Show current directory for PIDs
+/data/projects/NODE-RED-OESTERZWAM $ pwdx 6
+6: /usr/src/node-red
+
+
+zie settings.js met line nummers;
+cat /data/settings.js -n
+zie snel specifiek iets;
+cat /data/settings.js | grep -n userDir
+
 
 
 # config & aanzetten CAN
