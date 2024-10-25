@@ -22,7 +22,7 @@ cd /data/projects
 git clone git@github.com:Rikkopanda/NODE-RED-OESTERZWAM.git 
 
 
-#debug nodered;
+# debug nodered;
 
 
 find / -name "package.json" -not -path "*/node_modules/*" -exec 
@@ -41,6 +41,7 @@ cat /data/settings.js -n
 zie snel specifiek iets;
 cat /data/settings.js | grep -n userDir
 
+docker logs node-red-oesterzwam
 
 
 # config & aanzetten CAN
