@@ -31,7 +31,7 @@ services:
       - ./node-red-container/scripts:/scripts
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-    restart: unless-stopped        # Automatically restart the container unless it is explicitly stopped
+    restart: always        # Automatically restart the container unless it is explicitly stopped
   db:
     build: my_sql_container/
     container_name: mysql-database-oesterzwam
@@ -42,7 +42,7 @@ services:
       - oester-mysql-data:/var/lib/mysql
     ports:
       - "3307:3306"
-    restart: unless-stopped
+    restart: always
 volumes:
   oester-nodered-data4:
     driver: local
