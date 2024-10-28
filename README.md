@@ -41,7 +41,21 @@ cat /data/settings.js -n
 zie snel specifiek iets;
 cat /data/settings.js | grep -n userDir
 
+
+   editorTheme: {
+       projects: {
+           enabled: true
+       }
+   },
+
+
+
+
+
 docker logs node-red-oesterzwam
+
+alias dockerrestart = "docker compose down && docker compose up -d"
+
 
 
 # config & aanzetten CAN
@@ -54,3 +68,25 @@ docker logs node-red-oesterzwam
 candump can0
 
 cansend can0 123#12ABA
+
+# todo
+
+setting.js in git
+automatic add git mail user in compose
+
+add personal aliases in git project
+
+
+# calibration co2 meter
+
+zero point calibration:
+als de ppm 400 is in de omgeving( netzoals buitenlucht )
+voor op z'n minst 20 min.
+
+FF 01 87 00 00 00 00 00 78
+HD pin van de module naar 0v verbindeen  7sec`
+
+
+
+
+
