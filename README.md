@@ -53,19 +53,27 @@ for example it switches on the moisturizer when the set-goal moisture-value is 7
 
 
 
-# electrical circuit overview
+## electrical circuit overview
 
 communication between microcontrollers and raspberry pi is done by CAN-BUS
 1 esp32 microcontroller with all measuring devices and 2 outputs is one unit in the field
 
-Components:
+# Components:
+
 Raspberry pi 5
+
 ESP32 microcontroller
+
 CAN-controller+transeiver - MPC2551 (transeiver TJA1050 integrated)
+
 CAN-transeiver CJMCU-2551
-Sensors:
+
+# Sensors:
+
 BME680 - humidity, temperature, pressure
+
 MHZC19 - co2 measuring
+
 bi-directional level-shifter, 3v <-> 5v
 
 
