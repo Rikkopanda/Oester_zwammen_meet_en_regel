@@ -1,34 +1,33 @@
 
 ## Oyster growing automation project
-
 the goal of this project is to improve the measuring and controlling the process of growing mushrooms in a controlled environment
 
-summary of the biological process;
-Oyster mushroom growing is done in a dark room,
+**summary of the process**
 
-first the seeds are put in a mixture of organic material with 'koffiedik'
-wood chips can be added for increasing co2
-the beginning phase is called spreading('sporen'), a lot of co2 will be in the air which is suitable condition in this phase.
+Oyster mushroom growing is done in a dark room.
 
-the next phase is growing slowly, co2 level[ppm] should be around 400-500
+First the seeds are put in a mixture of organic material
+The incubation period the mushroom mycelium grow and spread through the substrate.
+Aftter that the next phase is fruiting, the relative humidity should be high, between 80%-95% and they need a lot of fresh air thus keeping the co2 level low.
+The growing of the mushroom is influenced by co2, temperature and moisture.
 
-the growing of the mushroom is influenced by co2, temperature and moisture.
+The controlling can be done by various instruments;
 
+ventilator: letting in fresh air from outside trough a vent.
 
-the controlling can be done by various instruments,
-letting in fresh air from outside by a vent with a ventilator.
-this affects; co2, temp and moisture
+this affects; co2, temp and moisture;
+
 co2: typically outside air is 400 ppm
-temp: based on the season, weather and timeofday
-moisture: based on the season, weather and timeofday
 
+temp: based on the season, weather and timeofday
+
+moisture: based on the season, weather and timeofday
 
 air conditioner:
 temperature: it cools the air, hot air gets vented outside
 moisture: air conditioner causes dry air as byproduct
-co2: ?
 
-moist air generator (vernevellaar):
+air humidifier:
 vibrating metal plate in shallow water creates tiny droplets in the air, a simple ventilator spreads it further in the room.
 moisture: increases moisture
 
@@ -59,6 +58,7 @@ communication between microcontrollers and raspberry pi is done by CAN-BUS
 1 esp32 microcontroller with all measuring devices and 2 outputs is one unit in the field
 
 **Components:**
+
 Raspberry pi 5
 
 ESP32 microcontroller
@@ -68,6 +68,7 @@ CAN-controller+transeiver - MPC2551 (transeiver TJA1050 integrated)
 CAN-transeiver CJMCU-2551
 
 **Sensors:**
+
 BME680 - humidity, temperature, pressure
 
 MHZC19 - co2 measuring
