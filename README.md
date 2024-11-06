@@ -2,6 +2,17 @@
 ## Oyster growing automation project
 the goal of this project is to improve the measuring and controlling the process of growing mushrooms in a controlled environment
 
+## Table of Contents
+- [Summary of the Growing Process](#summary-of-the-growing-process)
+- [Build Overview](#build-overview)
+  - [UI](#ui)
+- [Electrical Circuit Overview](#electrical-circuit-overview)
+  - [Diagram](#circuit overview)
+- [How to Install](#how-to-install)
+- [Dependencies](#dependencies)
+- [How to Use](#how-to-use)
+  - [Setting Up CAN](#setting-up-can)
+
 **summary of the process**
 
 Oyster mushroom growing is done in a dark room.
@@ -71,7 +82,7 @@ MHZC19 - co2 measuring
 bi-directional level-shifter, 3v <-> 5v
 
 
-**circuit overview**
+# circuit overview
 
 ![IMG-20241106-WA0000](https://github.com/user-attachments/assets/de03d8e4-49be-420d-9d4e-5c1c2054cd67)
 
@@ -80,9 +91,14 @@ bi-directional level-shifter, 3v <-> 5v
 
 
 # how to install
-project is done on Linux
-the server is made in docker container
+project is done on Linux pc
+
+git clone git@github.com:Rikkopanda/Oester_zwammen_meet_en_regel.git
+
+the server is made in docker container, using docker compose
+
 node-red is run on the server
+
 
 # dependencies
 
@@ -104,12 +120,15 @@ this will start container in the background, it restarts up always automatically
 
 go to 127.0.0.1:1880 in the browser
 
+upload program on the esp32
+
+**Setting up CAN**
+
 Configure CAN-controller;
 ```
 /boot/config.txt file:(add line)
 dtoverlay=mcp2515-can0,oscillator=8000000,interrupt=25
 ```
-
 Set up the can-interface on linux:
 ```
 auto can0
