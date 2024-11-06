@@ -13,6 +13,8 @@ the goal of this project is to improve the measuring and controlling the process
 - [How to Use](#how-to-use)
   - Setting Up CAN
 
+<img src="https://github.com/user-attachments/assets/5671f4d6-7154-4563-8375-e2c7d444f1b4" align="right" width="400"/>
+
 **summary of the process**
 
 Oyster mushroom growing is done in a dark room.
@@ -47,14 +49,12 @@ for example it switches on the moisturizer when the set-goal moisture-value is 7
 
 # ui
 **graphs page**
-<img src="https://github.com/user-attachments/assets/ab44abb5-f7f7-415c-ac4e-e018b33c205c" alt="graph1" width="400"/>
-![graph1https://github.com/user-attachments/assets/ab44abb5-f7f7-415c-ac4e-e018b33c205c)
+
+<img src="https://github.com/user-attachments/assets/ab44abb5-f7f7-415c-ac4e-e018b33c205c" alt="graph1" width="700"/>
 
 **home page**
 
-![home_page](https://github.com/user-attachments/assets/5c770ff9-78f0-47a3-8079-64137895af45)
-
-
+<img src="https://github.com/user-attachments/assets/5c770ff9-78f0-47a3-8079-64137895af45" alt="home page" width="700"/>
 
 
 # electrical circuit overview
