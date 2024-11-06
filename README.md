@@ -7,13 +7,12 @@ the goal of this project is to improve the measuring and controlling the process
 - [Build Overview](#build-overview)
   - [UI](#ui)
 - [Electrical Circuit Overview](#electrical-circuit-overview)
-  - Circuit Diagram
+  - Circuit Diagram <img src="https://github.com/user-attachments/assets/5671f4d6-7154-4563-8375-e2c7d444f1b4" align="right" width="400"/>
 - [How to Install](#how-to-install)
 - [Dependencies](#dependencies)
 - [How to Use](#how-to-use)
   - Setting Up CAN
 
-<img src="https://github.com/user-attachments/assets/5671f4d6-7154-4563-8375-e2c7d444f1b4" align="right" width="400"/>
 
 **summary of the process**
 
