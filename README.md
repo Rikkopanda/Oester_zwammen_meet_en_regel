@@ -1,90 +1,78 @@
-nodered:
-https://www.youtube.com/watch?v=3QgK4IAAqcQ
-https://stevesnoderedguide.com/using-the-node-red-chart-node
 
-zie flows op rikverhoeven usr!!
+## Oyster growing automation project
 
+the goal of this project is to improve the measuring and controlling the process of growing mushrooms in a controlled environment
 
-echo ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA3+tTzOZ5t6a2yy9EGTDxdIqSRMAT/t3O0oZpbxIWvp node-red@rikverhoeven-N56VM > /usr/src/node-red/.ssh/id_ed25519.pub
+summary of the biological process;
+Oyster mushroom growing is done in a dark room,
 
-echo -----BEGIN OPENSSH PRIVATE KEY-----
-b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
-QyNTUxOQAAACAN/rU8zmebemtssvRBkw8XSKkkTAE/7dztKGaW8SFr6QAAAKCsmUxGrJlM
-RgAAAAtzc2gtZWQyNTUxOQAAACAN/rU8zmebemtssvRBkw8XSKkkTAE/7dztKGaW8SFr6Q
-AAAED3+OzW6EKRpqLzkt3I4J0BqKbStmBI+oEjBK5SX/u02Q3+tTzOZ5t6a2yy9EGTDxdI
-qSRMAT/t3O0oZpbxIWvpAAAAG25vZGUtcmVkQHJpa3ZlcmhvZXZlbi1ONTZWTQEC
------END OPENSSH PRIVATE KEY----- > /usr/src/node-red/.ssh/id_ed25519
+first the seeds are put in a mixture of organic material with 'koffiedik'
+wood chips can be added for increasing co2
+the beginning phase is called spreading('sporen'), a lot of co2 will be in the air which is suitable condition in this phase.
 
-chmod 600 /usr/src/node-red/.ssh/id_ed25519
+the next phase is growing slowly, co2 level[ppm] should be around 400-500
+
+the growing of the mushroom is influenced by co2, temperature and moisture.
 
 
-cd /data/projects
-git clone git@github.com:Rikkopanda/NODE-RED-OESTERZWAM.git 
+the controlling can be done by various instruments,
+letting in fresh air from outside by a vent with a ventilator.
+this affects; co2, temp and moisture
+co2: typically outside air is 400 ppm
+temp: based on the season, weather and timeofday
+moisture: based on the season, weather and timeofday
 
 
-# debug nodered;
+air conditioner:
+temperature: it cools the air, hot air gets vented outside
+moisture: air conditioner causes dry air as byproduct
+co2: ?
+
+moist air generator (vernevellaar):
+vibrating metal plate in shallow water creates tiny droplets in the air, a simple ventilator spreads it further in the room.
+moisture: increases moisture
+
+# build overview
+
+A raspberry-pi 5 runs a server which contains the main program logic made in node-red.
+the node-red server has a gui in where the user can see measurements in graphs
+and set the settings for automatically controlling the enviroment.
+
+The node-red program changes various outputs by comparing the set-goal process-value and the actual measured process-value
+for example it switches on the moisturizer when the set-goal moisture-value is 70% and the measured value is 60%
 
 
-find / -name "package.json" -not -path "*/node_modules/*" -exec 
-ls -la {} \; 2>/dev/null
 
-enviroment variabelen;
-cat /proc/6/environ | sed 's/:/\n/g'
-
-Show current directory for PIDs
-/data/projects/NODE-RED-OESTERZWAM $ pwdx 6
-6: /usr/src/node-red
-
-
-zie settings.js met line nummers;
-cat /data/settings.js -n
-zie snel specifiek iets;
-cat /data/settings.js | grep -n userDir
-
-
-   editorTheme: {
-       projects: {
-           enabled: true
-       }
-   },
+# ui
 
 
 
 
+# electrical circuit overview
 
-docker logs node-red-oesterzwam
+communication between microcontrollers and raspberry pi is done by CAN-BUS
+1 esp32 microcontroller with all measuring devices and 2 outputs is one unit in the field
 
-alias dockerrestart = "docker compose down && docker compose up -d"
-
-
-
-# config & aanzetten CAN
-
-
- sudo /sbin/ip link set can0 up type can bitrate 25000
+Components:
 
 
 
-candump can0
 
-cansend can0 123#12ABA
+# how to install
+project is done on Linux
 
-# todo
-
-setting.js in git
-automatic add git mail user in compose
-
-add personal aliases in git project
+# dependencies
 
 
-# calibration co2 meter
+# how to use
 
-zero point calibration:
-als de ppm 400 is in de omgeving( netzoals buitenlucht )
-voor op z'n minst 20 min.
+docker compose up -d
+this will start container in the background, it restarts up always automatically from startup after.
 
-FF 01 87 00 00 00 00 00 78
-HD pin van de module naar 0v verbindeen  7sec`
+go to 127.0.0.1:1880 in the browser
+
+
+
 
 
 
