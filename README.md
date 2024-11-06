@@ -47,8 +47,8 @@ for example it switches on the moisturizer when the set-goal moisture-value is 7
 
 # ui
 **graphs page**
-
-![graph1](https://github.com/user-attachments/assets/ab44abb5-f7f7-415c-ac4e-e018b33c205c)
+<img src="https://github.com/user-attachments/assets/ab44abb5-f7f7-415c-ac4e-e018b33c205c" alt="graph1" width="400"/>
+![graph1https://github.com/user-attachments/assets/ab44abb5-f7f7-415c-ac4e-e018b33c205c)
 
 **home page**
 
