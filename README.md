@@ -54,14 +54,26 @@ communication between microcontrollers and raspberry pi is done by CAN-BUS
 1 esp32 microcontroller with all measuring devices and 2 outputs is one unit in the field
 
 Components:
+Raspberry pi 5
+ESP32 microcontroller
+CAN-controller+transeiver - MPC2551 (transeiver TJA1050 integrated)
+CAN-transeiver CJMCU-2551
+Sensors:
+BME680 - humidity, temperature, pressure
+MHZC19 - co2 measuring
+bi-directional level-shifter, 3v <-> 5v
+
 
 
 
 
 # how to install
 project is done on Linux
+the server is made in docker container
+node-red is run on the server
 
 # dependencies
+the node-red flow depends on multiple packages; these are located on package.json
 
 
 # how to use
@@ -71,7 +83,7 @@ this will start container in the background, it restarts up always automatically
 
 go to 127.0.0.1:1880 in the browser
 
-
+set up the can-interface on linux
 
 
 
