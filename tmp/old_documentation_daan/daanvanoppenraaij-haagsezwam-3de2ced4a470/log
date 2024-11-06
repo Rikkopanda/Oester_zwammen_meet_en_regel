@@ -1,0 +1,8 @@
+24-7-2018
+git pull on desktop, alarm library is not updated (freeAll). Laptop at home I have to wait to upload that modified library.
+When that is done remove "ignored air" error.
+
+25-7-2018
+laptop, improve the timer. Problem: two timers start at the same time, it uses the first timer in code and not time based and ignores the other one.
+tried to improve, by ignoring 0's but now it does nothing. It should work. Find out why it ignores everything.
+working version in older folder for comparison.
