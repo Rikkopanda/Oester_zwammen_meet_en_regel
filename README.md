@@ -45,10 +45,10 @@ for example it switches on the moisturizer when the set-goal moisture-value is 7
 
 ## ui
 # graphs
-![graph2](![graph2](https://github.com/user-attachments/assets/bdacc184-8d55-464a-8101-26bf8e5c8a83)
+[graph2](https://github.com/user-attachments/assets/bdacc184-8d55-464a-8101-26bf8e5c8a83)
 
 # home page
-![home_page](![home_page](https://github.com/user-attachments/assets/5c770ff9-78f0-47a3-8079-64137895af45)
+[home_page](https://github.com/user-attachments/assets/5c770ff9-78f0-47a3-8079-64137895af45)
 
 
 
