@@ -11,23 +11,18 @@ The incubation period the mushroom mycelium grow and spread through the substrat
 Aftter that the next phase is fruiting, the relative humidity should be high, between 80%-95% and they need a lot of fresh air thus keeping the co2 level low.
 The growing of the mushroom is influenced by co2, temperature and moisture.
 
-The controlling can be done by various instruments;
-
-ventilator: letting in fresh air from outside trough a vent.
-
+**The controlling can be done by various instruments;**
+**ventilator:** letting in fresh air from outside trough a vent.
 this affects; co2, temp and moisture;
-
 co2: typically outside air is 400 ppm
-
 temp: based on the season, weather and timeofday
-
 moisture: based on the season, weather and timeofday
 
-air conditioner:
+**air conditioner:**
 temperature: it cools the air, hot air gets vented outside
 moisture: air conditioner causes dry air as byproduct
 
-air humidifier:
+**air humidifier:**
 vibrating metal plate in shallow water creates tiny droplets in the air, a simple ventilator spreads it further in the room.
 moisture: increases moisture
 
