@@ -12,24 +12,20 @@ Aftter that the next phase is fruiting, the relative humidity should be high, be
 The growing of the mushroom is influenced by co2, temperature and moisture.
 
 **The controlling can be done by various instruments;**
-**ventilator:** letting in fresh air from outside trough a vent.
-this affects; co2, temp and moisture;
-co2: typically outside air is 400 ppm
-temp: based on the season, weather and timeofday
-moisture: based on the season, weather and timeofday
+**ventilator:** 
+Lets in fresh air from outside trough a vent.
+This affects; co2, temperature and humidity.
 
 **air conditioner:**
-temperature: it cools the air, hot air gets vented outside
-moisture: air conditioner causes dry air as byproduct
+it lowers the temperature, hot air gets vented outside.
 
 **air humidifier:**
-vibrating metal plate in shallow water creates tiny droplets in the air, a simple ventilator spreads it further in the room.
-moisture: increases moisture
+vibrating metal plate in shallow water creates tiny droplets in the air, a simple ventilator spreads it further in the room and increases humidity.
 
 # build overview
 
 A raspberry-pi 5 runs a server which contains the main program logic made in node-red.
-the node-red server has a gui in where the user can see measurements in graphs
+The node-red server has a gui in where the user can see measurements in graphs
 and set the settings for automatically controlling the enviroment.
 
 The node-red program changes various outputs by comparing the set-goal process-value and the actual measured process-value
