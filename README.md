@@ -45,10 +45,10 @@ for example it switches on the moisturizer when the set-goal moisture-value is 7
 
 ## ui
 # graphs
-[graph2](https://github.com/user-attachments/assets/bdacc184-8d55-464a-8101-26bf8e5c8a83)
+![graph1](https://github.com/user-attachments/assets/ab44abb5-f7f7-415c-ac4e-e018b33c205c)
 
 # home page
-[home_page](https://github.com/user-attachments/assets/5c770ff9-78f0-47a3-8079-64137895af45)
+![home_page](https://github.com/user-attachments/assets/5c770ff9-78f0-47a3-8079-64137895af45)
 
 
 
@@ -70,7 +70,7 @@ bi-directional level-shifter, 3v <-> 5v
 
 
 # circuit overview
-[IMG-20241106-WA0000](https://github.com/user-attachments/assets/de03d8e4-49be-420d-9d4e-5c1c2054cd67)
+![IMG-20241106-WA0000](https://github.com/user-attachments/assets/de03d8e4-49be-420d-9d4e-5c1c2054cd67)
 
 
 
