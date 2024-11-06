@@ -99,6 +99,7 @@ the server is made in docker container, using docker compose
 
 node-red is run on the server
 
+the node-red project is in a seperate git repo in /data/projects
 
 # dependencies
 
