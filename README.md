@@ -7,7 +7,7 @@ the goal of this project is to improve the measuring and controlling the process
 - [Build Overview](#build-overview)
   - [UI](#ui)
 - [Electrical Circuit Overview](#electrical-circuit-overview)
-  - circuit diagram
+  - Circuit Diagram
 - [How to Install](#how-to-install)
 - [Dependencies](#dependencies)
 - [How to Use](#how-to-use)
