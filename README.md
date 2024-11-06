@@ -3,11 +3,11 @@
 the goal of this project is to improve the measuring and controlling the process of growing mushrooms in a controlled environment
 
 ## Table of Contents
-- [Summary of the Growing Process](#summary-of-the-growing-process)
+- [Summary of the Growing Process](#summary-of-the-growing-process) <img src="https://github.com/user-attachments/assets/5671f4d6-7154-4563-8375-e2c7d444f1b4" align="right" width="400"/>
 - [Build Overview](#build-overview)
   - [UI](#ui)
 - [Electrical Circuit Overview](#electrical-circuit-overview)
-  - Circuit Diagram <img src="https://github.com/user-attachments/assets/5671f4d6-7154-4563-8375-e2c7d444f1b4" align="right" width="400"/>
+  - Circuit Diagram 
 - [How to Install](#how-to-install)
 - [Dependencies](#dependencies)
 - [How to Use](#how-to-use)
