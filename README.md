@@ -25,6 +25,7 @@ vibrating metal plate in shallow water creates tiny droplets in the air, a simpl
 # build overview
 
 A raspberry-pi 5 runs a server which contains the main program logic made in node-red.
+
 The node-red server has a gui in where the user can see measurements in graphs
 and set the settings for automatically controlling the enviroment.
 
