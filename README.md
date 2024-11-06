@@ -35,10 +35,12 @@ for example it switches on the moisturizer when the set-goal moisture-value is 7
 
 
 ## ui
-graphs
+**graphs page**
+
 ![graph1](https://github.com/user-attachments/assets/ab44abb5-f7f7-415c-ac4e-e018b33c205c)
 
-home page
+**home page**
+
 ![home_page](https://github.com/user-attachments/assets/5c770ff9-78f0-47a3-8079-64137895af45)
 
 
@@ -46,8 +48,9 @@ home page
 
 # electrical circuit overview
 
-communication between microcontrollers and raspberry pi is done by CAN-BUS
-1 esp32 microcontroller with all measuring devices and 2 outputs is one unit in the field
+Communication between microcontrollers and raspberry pi is done by CAN-BUS
+
+1 esp32 microcontroller with all measuring devices and 2 outputs is placed in the growing room.
 
 **Components:**
 
@@ -68,7 +71,8 @@ MHZC19 - co2 measuring
 bi-directional level-shifter, 3v <-> 5v
 
 
-# circuit overview
+**circuit overview**
+
 ![IMG-20241106-WA0000](https://github.com/user-attachments/assets/de03d8e4-49be-420d-9d4e-5c1c2054cd67)
 
 
