@@ -95,9 +95,14 @@ this will start container in the background, it restarts up always automatically
 
 go to 127.0.0.1:1880 in the browser
 
-set up the can-interface on linux
-
-
+Set up the can-interface on linux:
+```
+auto can0
+iface can0 inet manual
+    pre-up /sbin/ip link set can0 type can bitrate 500000 triple-sampling on restart-ms 100
+    up /sbin/ifconfig can0 up
+    down /sbin/ifconfig can0 down
+```
 
 
 
