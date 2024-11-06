@@ -85,25 +85,39 @@ the server is made in docker container
 node-red is run on the server
 
 # dependencies
-the node-red flow depends on multiple packages; these are located on package.json
 
+the node-red flow depends on multiple packages; these are located on package.json
+and can be installed with:
+```
+npm install in /data/projects/NODE-RED.../
+```
+/data/projects/NODE-RED.../ is where the noder-red flows and package.json is located in the container
+
+settings.json is an important file where various settigs are configured such as allowing projects from /data/projects folder.
 
 # how to use
-
+```
+cd oesterzwam_containers
 docker compose up -d
+```
 this will start container in the background, it restarts up always automatically from startup after.
 
 go to 127.0.0.1:1880 in the browser
+
+Configure CAN-controller;
+```
+/boot/config.txt file:(add line)
+dtoverlay=mcp2515-can0,oscillator=8000000,interrupt=25
+```
 
 Set up the can-interface on linux:
 ```
 auto can0
 iface can0 inet manual
-    pre-up /sbin/ip link set can0 type can bitrate 500000 triple-sampling on restart-ms 100
+    pre-up /sbin/ip link set can0 type can bitrate 25000 triple-sampling on restart-ms 100
     up /sbin/ifconfig can0 up
     down /sbin/ifconfig can0 down
 ```
-
-
+lowering bitrate from 500000 to 25000 allowed longer cable lenght
 
 
