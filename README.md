@@ -7,7 +7,7 @@ the goal of this project is to improve the measuring and controlling the process
 - [Build Overview](#build-overview)
   - [UI](#ui)
 - [Electrical Circuit Overview](#electrical-circuit-overview)
-  - [Diagram](#circuit overview)
+  - circuit diagram
 - [How to Install](#how-to-install)
 - [Dependencies](#dependencies)
 - [How to Use](#how-to-use)
@@ -33,7 +33,7 @@ it lowers the temperature, hot air gets vented outside.
 **air humidifier:**
 vibrating metal plate in shallow water creates tiny droplets in the air, a simple ventilator spreads it further in the room and increases humidity.
 
-# build overview
+## build overview
 
 A raspberry-pi 5 runs a server which contains the main program logic made in node-red.
 
@@ -45,7 +45,7 @@ for example it switches on the moisturizer when the set-goal moisture-value is 7
 
 
 
-## ui
+# ui
 **graphs page**
 
 ![graph1](https://github.com/user-attachments/assets/ab44abb5-f7f7-415c-ac4e-e018b33c205c)
@@ -82,7 +82,7 @@ MHZC19 - co2 measuring
 bi-directional level-shifter, 3v <-> 5v
 
 
-# circuit overview
+**circuit overview**
 
 ![IMG-20241106-WA0000](https://github.com/user-attachments/assets/de03d8e4-49be-420d-9d4e-5c1c2054cd67)
 
