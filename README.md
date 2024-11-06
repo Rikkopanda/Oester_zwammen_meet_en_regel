@@ -69,6 +69,10 @@ MHZC19 - co2 measuring
 bi-directional level-shifter, 3v <-> 5v
 
 
+# circuit overview
+[IMG-20241106-WA0000](https://github.com/user-attachments/assets/de03d8e4-49be-420d-9d4e-5c1c2054cd67)
+
+
 
 
 
