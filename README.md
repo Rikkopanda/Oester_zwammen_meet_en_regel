@@ -11,7 +11,7 @@ the goal of this project is to improve the measuring and controlling the process
 - [How to Install](#how-to-install)
 - [Dependencies](#dependencies)
 - [How to Use](#how-to-use)
-  - [Setting Up CAN](#setting-up-can)
+  - Setting Up CAN
 
 **summary of the process**
 
