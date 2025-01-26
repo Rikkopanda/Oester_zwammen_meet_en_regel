@@ -16,13 +16,22 @@ services:
     cap_add:
       - NET_ADMIN  # Add network administration capabilities (optional but may be required)
       - SYS_RAWIO  # Add raw input/output access
-    
+    # entrypoint: ["sh", "/scripts/docker-compose-entry.sh"]
+    environment:
+      - NODE_RED_ENABLE_PROJECTS=true
+      - NODE_RED_ENABLE_SAFE_MODE=false
+      - NODE_RED_ENABLE_EDITOR=true
+      - NODE_RED_HTTP_ADMIN_ROOT=/
+      - GIT_USER_NAME=rikverhoeven
+      - GIT_USER_EMAIL=rikverhoeven10@gmail.com
     volumes:
-      - oester-nodered-data:/data  # Named volume for persisting Node-RED data
-      - /home/rik/.ssh:/tmp/.ssh
-      - /home/rik/.ssh:/root/.ssh
-      - ./scripts:/scripts
-    restart: unless-stopped        # Automatically restart the container unless it is explicitly stopped
+      - oester-nodered-data4:/data  # Named volume for persisting Node-RED data
+      - ${HOME}/.ssh:/tmp/.ssh
+      - ${HOME}/.ssh:/root/.ssh
+      - ./node-red-container/scripts:/scripts
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    restart: always        # Automatically restart the container unless it is explicitly stopped
   db:
     build: my_sql_container/
     container_name: mysql-database-oesterzwam
@@ -33,9 +42,9 @@ services:
       - oester-mysql-data:/var/lib/mysql
     ports:
       - "3307:3306"
-    restart: unless-stopped
+    restart: always
 volumes:
-  oester-nodered-data:
+  oester-nodered-data4:
     driver: local
   oester-mysql-data:
     driver: local
